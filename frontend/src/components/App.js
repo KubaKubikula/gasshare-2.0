@@ -61,11 +61,11 @@ class App extends Component {
           <h2>I have</h2>
           <div>
           <Link to="/driver">
-            <input class="btn btn-primary" type="button" value="Car" />
+            <input className="btn btn-primary" type="button" value="Car" />
           </Link>
           <br /><br />
           <Link to="/hitchhiker">
-            <input class="btn btn-primary" type="button" value="Gas Money" />
+            <input className="btn btn-primary" type="button" value="Gas Money" />
           </Link>
           </div>
         </div>
@@ -118,7 +118,6 @@ class DriverForm extends React.Component {
     super(props);
     this.state = {from: '', to: '', when: ''};
     
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -138,9 +137,18 @@ class DriverForm extends React.Component {
   }
 
   handleSubmit(event) {
-    
     event.preventDefault();
-  }
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: this.state.from, to: this.state.to, when: this.state.when })
+    };
+
+    fetch('/drives', requestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ postId: data.id }));
+    }
 
   render() {
     return (
