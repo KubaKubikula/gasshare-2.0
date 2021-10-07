@@ -5,7 +5,7 @@ class DriveSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     drive_from = serializers.CharField(required=False, allow_blank=True, max_length=100)
     drive_to = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    time = serializers.DateTimeField(auto_now_add=True)
+    time = serializers.CharField(required=False, allow_blank=True, max_length=100)
 
     def create(self, validated_data):
         return Drive.objects.create(**validated_data)
