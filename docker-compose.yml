@@ -7,6 +7,7 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: postgres
+      
   django:
     build: ./api
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
@@ -16,6 +17,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - robutek-network
+
   frontend:
     build: ./frontend
     command: ["npm", "start"]
@@ -24,6 +28,9 @@ services:
       - node-modules:/app/frontend/node_modules
     ports:
       - "3000:3000"
+    networks:
+      - robutek-network
+
   adminer:
       image: adminer
       restart: always
@@ -31,3 +38,7 @@ services:
         - 8080:8080
 volumes:
   node-modules:
+
+networks:
+  robutek-network:
+    driver: bridge
