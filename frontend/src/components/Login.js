@@ -50,24 +50,25 @@ class Login extends Component {
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: ''};
+        this.state = {email: '', password: '', xxclass: ''};
         
+        this.handleChangePass = this.handleChangePass.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-    handleFocus(event)
+    handleChangePass(event)
     {
-        alert("xxxx");
+        this.setState({xxclass: 'password'});
     }
 
     handleChange(event) {
         if (event.target.email === "email") {
-        this.setState({email: event.target.value});
+            this.setState({email: event.target.value});
         }
 
         if (event.target.password === "password") {
-        this.setState({password: event.target.value});
+            this.setState({password: event.target.value});
         }
     }
 
@@ -105,7 +106,7 @@ class LoginForm extends Component {
         </div>
         <div class="control">
         <label for="password" class="fa fa-asterisk"></label>
-        <input onFocus={this.handleFocus} id="password" placeholder="Password" type="password"></input>
+        <input class={this.state.xxclass} onChange={this.handleChangePass} id="password" placeholder="Password" type="password" />
         </div>
         </div>
         
