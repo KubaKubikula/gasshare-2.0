@@ -35,7 +35,7 @@ class Login extends Component {
               autoLoad
               callback={responseFacebook}
               render={renderProps => (
-                <button onClick={renderProps.onClick}>This is my custom FB button</button>
+                <button >This is my custom FB button</button>
               )}
             />
             <br />
@@ -44,22 +44,27 @@ class Login extends Component {
           </div>
         );
       }
-
 }
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', xxclass: ''};
+        this.state = {email: '', password: '', passClass: ''};
         
-        this.handleChangePass = this.handleChangePass.bind(this);
+        this.handleFocusPass = this.handleFocusPass.bind(this);
+        this.handleBlurPass = this.handleBlurPass.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-    handleChangePass(event)
+    handleFocusPass(event)
     {
-        this.setState({xxclass: 'password'});
+        this.setState({passClass: 'password'});
+    }
+
+    handleBlurPass(event)
+    {
+        this.setState({passClass: ''});
     }
 
     handleChange(event) {
@@ -92,11 +97,11 @@ class LoginForm extends Component {
         <div>
         
         <div class="owl">
-        <div class="hand"></div>
-        <div class="hand hand-r"></div>
-        <div class="arms">
-            <div class="arm"></div>
-            <div class="arm arm-r"></div>
+        <div className={`hand ${this.state.passClass}`}></div>
+        <div className={`hand hand-r ${this.state.passClass}`}></div>
+        <div className={`arms ${this.state.passClass} `}>
+            <div className={`arm ${this.state.passClass} `}></div>
+            <div className={`arm arm-r ${this.state.passClass} `}></div>
         </div>
         </div>
         <div class="form">
@@ -106,28 +111,9 @@ class LoginForm extends Component {
         </div>
         <div class="control">
         <label for="password" class="fa fa-asterisk"></label>
-        <input class={this.state.xxclass} onChange={this.handleChangePass} id="password" placeholder="Password" type="password" />
+        <input onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
         </div>
         </div>
-        
-        <main style={{display: 'none'}} class="form-signin">
-        <form>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-            <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-            <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-            <label for="floatingPassword">Password</label>
-            </div>
-
-            <div class="checkbox mb-3">
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        </form>
-        </main>
     
         <form style={{display: 'none'}} onSubmit={this.handleSubmit}>
             <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
