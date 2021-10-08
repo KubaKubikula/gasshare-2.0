@@ -17,11 +17,7 @@ class App extends Component {
     return (
       <Router>  
       <div className="App">
-          <header className="App-header">
-            <img className="App-logo" src={logo} alt="logo" />
-            <h1 className="App-title">It's time to share your car/gasmoney</h1>
-          </header>
-        <br /><br />
+          
         <Switch>
           <Route path="/login">
             <Login />
