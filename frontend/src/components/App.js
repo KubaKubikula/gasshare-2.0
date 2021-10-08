@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import logo from '../img/logo.png';
 import '../css/App.css';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
+
+import Login from './Login';
+import Homepage from './Homepage';
+import Drives from './Drives';
+import Hitchhiker from './Hitchhiker';
+import Driver from './Driver';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,18 +17,12 @@ import {
 
 class App extends Component {
   render() {
-    const responseGoogle = (response) => {
-      console.log(response);
-    }
-    const responseFacebook = (response) => {
-      console.log(response);
-    }
     return (
       <Router>  
         <div className="App">
         <header class="mb-auto">
           <div>
-            <h3 class="float-md-start mb-0">GasShare</h3>
+            <Link to="/"><h3 class="float-md-start mb-0">GasShare</h3></Link>
             <nav class="nav nav-masthead justify-content-center float-md-end">
               <NavLink to="/" activeClassName='nav-link active' className="nav-link">Home</NavLink>
               <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
@@ -62,59 +60,6 @@ class App extends Component {
       </Router>
     );
 
-    function Homepage() {
-      return (
-        <div>
-          <br /><br />
-          <br /><br />
-          <h1>Find your drive and share a gas spendings.</h1>
-          <p class="lead">Simply if you are driving from place to place or hitchhiking and want to share you ride/gas money</p>
-          <p class="lead">
-            <Link to="/login">
-            <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
-            </Link>
-            <Link to="/learn">
-            <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
-            </Link>
-          </p>
-          
-          <br /><br />
-          <br /><br />
-          <br /><br />
-        </div>
-      );
-    }
-    
-    function Login() {
-      return (
-        <div>
-          <br /><br />
-          <br /><br />
-          <GoogleLogin
-            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
-          <br /><br />
-          <FacebookLogin
-            appId="1088597931155576"
-            autoLoad
-            callback={responseFacebook}
-            render={renderProps => (
-              <button onClick={renderProps.onClick}>This is my custom FB button</button>
-            )}
-          />
-          <br /><br />
-          <LoginForm />
-          <br />
-          <br /><br />
-          <br /><br />
-        </div>
-      );
-    }
-
     function Home() {
       return (
         <div>
@@ -135,53 +80,7 @@ class App extends Component {
         </div>
       );
     }
-    
-    function Driver() {
-      return ( 
-        <div>
-          <br /><br />
-          <br /><br />
-        <h2>Where are you going ?</h2>
-          <DriverForm />
-          <br /><br />
-          <br /><br />
-        </div>
-      );
-    }
 
-    function Hitchhiker() {
-      return ( 
-        <div>
-          <br /><br />
-          <br /><br />
-        <h2>Where are you going ?</h2>
-          <input type="text" value="From address" />
-          <br />
-          <input type="text" value="Address" />
-          <br />
-          <input type="text" value="Time" />
-          <br />
-          <input class="btn btn-primary" type="button" value="Submit" />
-          <br /><br />
-          <br /><br />
-        </div>
-      );
-    }
-
-    function Drives() {
-      return ( 
-        <div>
-        <h2>Drives</h2>
-          <table>
-            <tr>
-              <td>Lisabon - Porto</td>
-              <td>10am</td>
-              <td>Knight rider</td>
-            </tr>
-          </table>
-        </div>
-      );
-    }
 
     function Learn() {
       return ( 
@@ -191,147 +90,6 @@ class App extends Component {
         </div>
       );
     }
-  }
-}
-
-class DriverForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {from: '', to: '', when: ''};
-    
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    if (event.target.name === "from") {
-      this.setState({from: event.target.value});
-    }
-
-    if (event.target.name === "to") {
-      this.setState({to: event.target.value});
-    }
-
-    if (event.target.name === "when") {
-      this.setState({when: event.target.value});
-    }
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: this.state.from, to: this.state.to, when: this.state.when })
-    };
-
-    fetch('http://localhost:8000/drives/', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({ postId: data.id }));
-    }
-
-  render() {
-    return (
-      <div>
-      <form onSubmit={this.handleSubmit}>
-        <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
-        <tbody>
-          <tr>
-            <td>
-            From:
-            </td>
-            <td>
-              <input type="text" name="from" value={this.state.from} onChange={this.handleChange} /> Insert my location
-            </td>
-          </tr>
-          <tr>
-            <td>
-            To:
-            </td>
-            <td>
-              <input type="text" name="to" value={this.state.to} onChange={this.handleChange} />
-            </td>
-          </tr>
-          <tr>
-            <td>
-            When:
-            </td>
-            <td>
-              <input type="text" name="when" value={this.state.when} onChange={this.handleChange} />
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <input type="submit" value="Submit" />
-      </form>
-      </div>
-    );
-  }
-}
-
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {email: '', password: ''};
-    
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    if (event.target.email === "email") {
-      this.setState({email: event.target.value});
-    }
-
-    if (event.target.password === "password") {
-      this.setState({password: event.target.value});
-    }
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: this.state.email, to: this.state.password})
-    };
-
-    fetch('http://localhost:8000/login/', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({ postId: data.id }));
-    }
-
-  render() {
-    return (
-      <div>
-      <h3>Oldschool login</h3>
-      <form onSubmit={this.handleSubmit}>
-        <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
-        <tbody>
-          <tr>
-            <td>
-            Email:
-            </td>
-            <td>
-              <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-            </td>
-          </tr>
-          <tr>
-            <td>
-            Password:
-            </td>
-            <td>
-              <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <input type="submit" value="Submit" />
-      </form>
-      </div>
-    );
   }
 }
 
