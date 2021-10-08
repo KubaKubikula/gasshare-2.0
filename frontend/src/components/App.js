@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import '../css/App.css';
 
 import Login from './Login';
@@ -16,13 +16,17 @@ import {
 } from "react-router-dom";
 
 class App extends Component {
+  
   render() {
+    if(false) {
+      alert("xxxx");
+    }
     return (
       <Router>  
         <div className="App">
         <header class="mb-auto">
           <div>
-            <Link to="/"><h3 class="float-md-start mb-0">GasShare</h3></Link>
+            <Link to="/"><h3 style={{color:'white'}} class="float-md-start mb-0">GasShare</h3></Link>
             <nav class="nav nav-masthead justify-content-center float-md-end">
               <NavLink to="/" activeClassName='nav-link active' className="nav-link">Home</NavLink>
               <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
@@ -55,7 +59,7 @@ class App extends Component {
             </Route>
           </Switch>
         </main> 
-        
+        <br /><br /><br /><br /><br />
       </div>
       </Router>
     );

@@ -8,6 +8,7 @@ class Homepage extends Component {
             <div>
             <br /><br />
             <br /><br />
+            <br /><br />
             <h1>Find your drive and share a gas spendings.</h1>
             <p class="lead">Simply if you are driving from place to place or hitchhiking and want to share you ride/gas money</p>
             <p class="lead">

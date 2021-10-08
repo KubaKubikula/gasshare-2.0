@@ -3,6 +3,10 @@ import '../css/App.css';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
+import {
+    Redirect
+} from "react-router-dom";
+
 class Login extends Component {
     render () {
         const responseGoogle = (response) => {
@@ -16,6 +20,8 @@ class Login extends Component {
           <div>
             <br /><br />
             <br /><br />
+            <br /><br />
+            <LoginForm />
             <GoogleLogin
               clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
               buttonText="Login"
@@ -32,8 +38,6 @@ class Login extends Component {
                 <button onClick={renderProps.onClick}>This is my custom FB button</button>
               )}
             />
-            <br /><br />
-            <LoginForm />
             <br />
             <br /><br />
             <br /><br />
@@ -51,6 +55,11 @@ class LoginForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    handleFocus(event)
+    {
+        alert("xxxx");
+    }
 
     handleChange(event) {
         if (event.target.email === "email") {
@@ -64,23 +73,62 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        alert("cosik");
+        <Redirect to="/home"/>;
+        // const requestOptions = {
+        // method: 'POST',
+        // headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({ from: this.state.email, to: this.state.password})
+        // };
 
-        const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: this.state.email, to: this.state.password})
-        };
-
-        fetch('http://localhost:8000/login/', requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
-        }
+        // fetch('http://localhost:8000/login/', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => this.setState({ postId: data.id }));
+    }
 
     render() {
         return (
         <div>
-        <h3>Oldschool login</h3>
-        <form onSubmit={this.handleSubmit}>
+        
+        <div class="owl">
+        <div class="hand"></div>
+        <div class="hand hand-r"></div>
+        <div class="arms">
+            <div class="arm"></div>
+            <div class="arm arm-r"></div>
+        </div>
+        </div>
+        <div class="form">
+        <div class="control">
+            <label for="email" class="fa fa-envelope"></label>
+            <input id="email" placeholder="Email" type="email"></input>
+        </div>
+        <div class="control">
+        <label for="password" class="fa fa-asterisk"></label>
+        <input onFocus={this.handleFocus} id="password" placeholder="Password" type="password"></input>
+        </div>
+        </div>
+        
+        <main style={{display: 'none'}} class="form-signin">
+        <form>
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
+            <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
+            <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
+        </main>
+    
+        <form style={{display: 'none'}} onSubmit={this.handleSubmit}>
             <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
             <tbody>
             <tr>
