@@ -68,11 +68,11 @@ class LoginForm extends Component {
     }
 
     handleChange(event) {
-        if (event.target.email === "email") {
+        if (event.target.id === "email") {
             this.setState({email: event.target.value});
         }
 
-        if (event.target.password === "password") {
+        if (event.target.id === "password") {
             this.setState({password: event.target.value});
         }
     }
@@ -80,7 +80,7 @@ class LoginForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         alert("cosik");
-        <Redirect to="/home"/>;
+        <Redirect to="/"/>;
         // const requestOptions = {
         // method: 'POST',
         // headers: { 'Content-Type': 'application/json' },
@@ -95,49 +95,27 @@ class LoginForm extends Component {
     render() {
         return (
         <div>
-        
-        <div class="owl">
-        <div className={`hand ${this.state.passClass}`}></div>
-        <div className={`hand hand-r ${this.state.passClass}`}></div>
-        <div className={`arms ${this.state.passClass} `}>
-            <div className={`arm ${this.state.passClass} `}></div>
-            <div className={`arm arm-r ${this.state.passClass} `}></div>
-        </div>
-        </div>
-        <div class="form">
-        <div class="control">
-            <label for="email" class="fa fa-envelope"></label>
-            <input id="email" placeholder="Email" type="email"></input>
-        </div>
-        <div class="control">
-        <label for="password" class="fa fa-asterisk"></label>
-        <input onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
-        </div>
-        </div>
-    
-        <form style={{display: 'none'}} onSubmit={this.handleSubmit}>
-            <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
-            <tbody>
-            <tr>
-                <td>
-                Email:
-                </td>
-                <td>
-                <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                Password:
-                </td>
-                <td>
-                <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
-                </td>
-            </tr>
-            </tbody>
-            </table>
-            <input type="submit" value="Submit" />
-        </form>
+            <div class="owl">
+            <div className={`hand ${this.state.passClass}`}></div>
+            <div className={`hand hand-r ${this.state.passClass}`}></div>
+            <div className={`arms ${this.state.passClass} `}>
+                <div className={`arm ${this.state.passClass} `}></div>
+                <div className={`arm arm-r ${this.state.passClass} `}></div>
+            </div>
+            </div>
+            <form onSubmit={this.handleSubmit}>
+                <div class="form">
+                    <div class="control">
+                        <label for="email" class="fa fa-envelope"></label>
+                        <input id="email" placeholder="Email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                    </div>
+                    <div class="control">
+                        <label for="password" class="fa fa-asterisk"></label>
+                        <input value={this.state.password} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            </form>
         </div>
         );
     }

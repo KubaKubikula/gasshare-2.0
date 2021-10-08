@@ -10,7 +10,9 @@ class Homepage extends Component {
             <br /><br />
             <br /><br />
             <h1>Find your drive and share a gas spendings.</h1>
-            <p class="lead">Simply if you are driving from place to place or hitchhiking and want to share you ride/gas money</p>
+            <br />
+            <p class="lead">Simply if you are driving from place to place or hitchhiking<br /> and want to share you ride/gas money</p>
+            <br /><br />
             <p class="lead">
                 <Link to="/login">
                 <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
