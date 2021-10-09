@@ -1,34 +1,18 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
 
 import {
-    Link
+    Redirect
 } from "react-router-dom";
 
-class Login extends Component {
+class Register extends Component {
     render () {
-        const responseGoogle = (response) => {
-            console.log(response);
-        }
-        const responseFacebook = (response) => {
-            console.log(response);
-        }
-        
         return (
           <div>
             <br /><br />
             <br /><br />
             <br /><br />
-            <LoginForm />
-            <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-            />
+            <RegisterForm />
             <br /><br />          
             <br />
             <br /><br />
@@ -38,10 +22,15 @@ class Login extends Component {
       }
 }
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', passClass: ''};
+        this.state = {
+            email: '',
+            password: '',
+            password2: '',
+            passClass: ''
+        };
         
         this.handleFocusPass = this.handleFocusPass.bind(this);
         this.handleBlurPass = this.handleBlurPass.bind(this);
@@ -67,20 +56,29 @@ class LoginForm extends Component {
         if (event.target.id === "password") {
             this.setState({password: event.target.value});
         }
+
+        if (event.target.id === "password2") {
+            this.setState({password2: event.target.value});
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
         
-        // const requestOptions = {
-        // method: 'POST',
-        // headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify({ from: this.state.email, to: this.state.password})
-        // };
-
-        // fetch('http://localhost:8000/login/', requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => this.setState({ postId: data.id }));
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: this.state.email, 
+                password: this.state.password, 
+                password2: this.state.password2
+            })
+        };
+        
+        fetch('http://localhost:8000/register/', requestOptions)
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
         // <FacebookLogin
         //       appId="1088597931155576"
@@ -95,7 +93,10 @@ class LoginForm extends Component {
     render() {
         return (
         <div>
-            <div className="owl">
+            <div className=" alert alert-fixed alert-secondary" role="alert">
+                Nějaká zprávička
+            </div>
+            <div class="owl">
             <div className={`hand ${this.state.passClass}`}></div>
             <div className={`hand hand-r ${this.state.passClass}`}></div>
             <div className={`arms ${this.state.passClass} `}>
@@ -104,23 +105,25 @@ class LoginForm extends Component {
             </div>
             </div>
             <form onSubmit={this.handleSubmit}>
-                <div className="form">
-                    <div className="control">
-                        <label htmlFor="email" className="fa fa-envelope"></label>
+                <div class="form">
+                    <div class="control">
+                        <label for="email" class="fa fa-envelope"></label>
                         <input id="email" placeholder="Email" type="email" value={this.state.email} onChange={this.handleChange}></input>
                     </div>
-                    <div className="control">
-                        <label htmlFor="password" className="fa fa-asterisk"></label>
+                    <div class="control">
+                        <label for="password" class="fa fa-asterisk"></label>
                         <input value={this.state.password} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
                     </div>
-                    <input className="btn btn-primary" type="submit" value="Log me in" />
+                    <div class="control">
+                        <label for="password2" class="fa fa-asterisk"></label>
+                        <input value={this.state.password2} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password2" placeholder="Password again" type="password" />
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Register me" />
                 </div>
             </form>
-            <Link to="/register">Create account</Link>
-            <br /><br />
         </div>
         );
     }
 }
 
-export default Login;
+export default Register;

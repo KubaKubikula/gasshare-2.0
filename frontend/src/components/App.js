@@ -6,6 +6,7 @@ import Homepage from './Homepage';
 import Drives from './Drives';
 import Hitchhiker from './Hitchhiker';
 import Driver from './Driver';
+import Register from './Register';
 
 import {
   BrowserRouter as Router,
@@ -17,24 +18,24 @@ import {
 
 class App extends Component {
   render() {
-    if(false) {
-      alert("xxxx");
-    }
     return (
       <Router>  
         <div className="App">
-        <header class="mb-auto">
+        <header className="mb-auto">
           <div>
-            <Link to="/"><h3 style={{color:'white'}} class="float-md-start mb-0">GasShare</h3></Link>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
+            <Link to="/"><h3 style={{color:'white'}} className="float-md-start mb-0">GasShare</h3></Link>
+            <nav className="nav nav-masthead justify-content-center float-md-end">
               <NavLink to="/" exact={true} activeClassName='nav-link active' className="nav-link">Home</NavLink>
               <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
               <NavLink to="/learn" activeClassName='nav-link active' className="nav-link">Learn more</NavLink>
             </nav>
           </div>
         </header>
-        <main class="px-3">
+        <main className="px-3">
           <Switch>
+          <Route path="/register">
+              <Register />
+            </Route>
             <Route path="/login">
               <Login />
             </Route>
