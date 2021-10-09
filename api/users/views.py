@@ -11,6 +11,9 @@ def register(request):
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            try:
+                serializer.save()
+            except:
+                return JsonResponse({"password": ["Passwords are not same"]}, status=400)
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)

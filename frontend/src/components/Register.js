@@ -29,7 +29,9 @@ class RegisterForm extends Component {
             email: '',
             password: '',
             password2: '',
-            passClass: ''
+            passClass: '',
+            flashMessage: '',
+            flashClass: 'd-none'
         };
         
         this.handleFocusPass = this.handleFocusPass.bind(this);
@@ -76,9 +78,14 @@ class RegisterForm extends Component {
         };
         
         fetch('http://localhost:8000/register/', requestOptions)
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+            .then(response => response.json())
+            .then(data => {
+                    console.log(data);
+                    this.setState({flashMessage: Object.values(data)[0][0], flashClass: ''}) 
+            });
 
         // <FacebookLogin
         //       appId="1088597931155576"
@@ -93,8 +100,8 @@ class RegisterForm extends Component {
     render() {
         return (
         <div>
-            <div className=" alert alert-fixed alert-secondary" role="alert">
-                Nějaká zprávička
+            <div className={`${this.state.flashClass} alert alert-fixed alert-secondary`} role="alert">
+                {this.state.flashMessage}
             </div>
             <div class="owl">
             <div className={`hand ${this.state.passClass}`}></div>
