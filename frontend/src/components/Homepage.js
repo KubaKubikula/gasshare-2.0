@@ -15,10 +15,10 @@ class Homepage extends Component {
             <br /><br />
             <p className="lead">
                 <Link to="/login">
-                <a href="#" className="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
+                <a className="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
                 </Link>
                 <Link to="/learn">
-                <a href="#" className="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+                <a className="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </Link>
             </p>
             
