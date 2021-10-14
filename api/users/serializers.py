@@ -21,3 +21,11 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class LoginUserSerializer(serializers.ModelSerializer):  
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'password']
+
+    def valid_login(self):
+        return True
