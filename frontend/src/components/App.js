@@ -116,7 +116,7 @@ class App extends Component {
               <Register />
             </Route>
             <Route path="/login">
-              <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
+              <Login history={this.props.history} handleSuccessfulAuth={this.handleSuccessfulAuth} />
             </Route>
             <Route path="/learn">
               <Learn />

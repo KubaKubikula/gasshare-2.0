@@ -26,7 +26,7 @@ class Login extends Component {
             <br /><br />
             <br /><br />
             <br /><br />
-            <LoginForm handleSuccessfulAuth={this.props.handleSuccessfulAuth} />
+            <LoginForm history={this.props.history} handleSuccessfulAuth={this.props.handleSuccessfulAuth} />
             <GoogleLogin
               clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
               buttonText="Login"
@@ -93,6 +93,8 @@ class LoginForm extends Component {
           .then(data => {
                   console.log(data);
                   this.props.handleSuccessfulAuth(data);
+                  //this.props.history.push('/home');
+                  window.location.href = '/home';
           })
           .catch(error => {
             console.log("login error", error);
