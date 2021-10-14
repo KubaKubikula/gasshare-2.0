@@ -34,10 +34,8 @@ def login(request):
 @csrf_exempt
 def loggedin(request):
     if request.method == 'GET':
-        data = JSONParser().parse(request)
-        serializer = LoginUserSerializer(data=data)
-        if request.session['loggedIn']:            
-            return JsonResponse({"loggedIn": ["true"]}, status=200)
+        if 'loggedIn' not in request.session or request.session['loggedIn']:            
+            return JsonResponse({"loggedIn": "true"}, status=200)
         else:
-            return JsonResponse({"LoggedIn": ["false"]}, status=400)
+            return JsonResponse({"LoggedIn": "false"}, status=400)
         

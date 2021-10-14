@@ -40,15 +40,15 @@ class App extends Component {
       .get("http://localhost:8000/loggedin", { withCredentials: true })
       .then(response => {
         if (
-          response.data.logged_in &&
+          response.loggedIn === "true" &&
           this.state.loggedInStatus === "NOT_LOGGED_IN"
         ) {
           this.setState({
             loggedInStatus: "LOGGED_IN",
-            user: response.data.user
+            user: {}
           });
         } else if (
-          !response.data.logged_in &
+          !response.loggedIn &
           (this.state.loggedInStatus === "LOGGED_IN")
         ) {
           this.setState({
