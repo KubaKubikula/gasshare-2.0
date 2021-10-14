@@ -8,6 +8,7 @@ import Drives from './Drives';
 import Hitchhiker from './Hitchhiker';
 import Driver from './Driver';
 import Register from './Register';
+import { PropTypes } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -36,7 +37,7 @@ class App extends Component {
 
   checkLoginStatus() {
     axios
-      .get("http://localhost:8000/logged_in", { withCredentials: true })
+      .get("http://localhost:8000/loggedin", { withCredentials: true })
       .then(response => {
         if (
           response.data.logged_in &&
@@ -62,15 +63,15 @@ class App extends Component {
   }
 
   handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-    this.props.history.push("/dashboard");
+    this.handleLogin(data);
+    //this.history.push("/dashboard");
   }
 
   handleLogoutClick() {
     axios
       .delete("http://localhost:3001/logout", { withCredentials: true })
       .then(response => {
-        this.props.handleLogout();
+        this.handleLogout();
       })
       .catch(error => {
         console.log("logout error", error);
@@ -115,7 +116,7 @@ class App extends Component {
               <Register />
             </Route>
             <Route path="/login">
-              <Login />
+              <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
             </Route>
             <Route path="/learn">
               <Learn />

@@ -3,6 +3,7 @@ import '../css/App.css';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import axios from "axios";
+import { PropTypes } from 'react'
 
 import {
     Link
@@ -25,7 +26,7 @@ class Login extends Component {
             <br /><br />
             <br /><br />
             <br /><br />
-            <LoginForm />
+            <LoginForm handleSuccessfulAuth={this.props.handleSuccessfulAuth} />
             <GoogleLogin
               clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
               buttonText="Login"
@@ -89,10 +90,9 @@ class LoginForm extends Component {
             "http://localhost:8000/login/",
             requestOptions
           )
-          .then(response => response.json())
           .then(data => {
                   console.log(data);
-                  //this.props.handleSuccessfulAuth(data);
+                  this.props.handleSuccessfulAuth(data);
           })
           .catch(error => {
             console.log("login error", error);
