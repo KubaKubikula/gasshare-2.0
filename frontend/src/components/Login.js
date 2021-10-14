@@ -2,13 +2,16 @@ import React, { Component, useState } from 'react';
 import '../css/App.css';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
-import PropTypes from 'prop-types';
+import axios from "axios";
 
 import {
     Link
 } from "react-router-dom";
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+    }
     render () {
         const responseGoogle = (response) => {
             console.log(response);
@@ -71,27 +74,29 @@ class LoginForm extends Component {
     }
 
     handleSubmit(event) {
+        const { email, password } = this.state;
+    
+        axios
+          .post(
+            "http://localhost:8000/login",
+            {
+              user: {
+                email: email,
+                password: password
+              }
+            },
+            { withCredentials: true }
+          )
+          .then(response => {
+            if (response.data.logged_in) {
+              this.props.handleSuccessfulAuth(response.data);
+            }
+          })
+          .catch(error => {
+            console.log("login error", error);
+          });
         event.preventDefault();
-        
-        // const requestOptions = {
-        // method: 'POST',
-        // headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify({ from: this.state.email, to: this.state.password})
-        // };
-
-        // fetch('http://localhost:8000/login/', requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => this.setState({ postId: data.id }));
-
-        // <FacebookLogin
-        //       appId="1088597931155576"
-        //       autoLoad
-        //       callback={responseFacebook}
-        //       render={renderProps => (
-        //         <button >This is my custom FB button</button>
-        //       )}
-        //     />  
-    }
+      }
 
     render() {
         return (

@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import '../css/App.css';
+import axios from "axios";
 
 import Login from './Login';
 import Homepage from './Homepage';
@@ -16,7 +17,83 @@ import {
   NavLink
 } from "react-router-dom";
 
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    };
+
+    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  checkLoginStatus() {
+    axios
+      .get("http://localhost:8000/logged_in", { withCredentials: true })
+      .then(response => {
+        if (
+          response.data.logged_in &&
+          this.state.loggedInStatus === "NOT_LOGGED_IN"
+        ) {
+          this.setState({
+            loggedInStatus: "LOGGED_IN",
+            user: response.data.user
+          });
+        } else if (
+          !response.data.logged_in &
+          (this.state.loggedInStatus === "LOGGED_IN")
+        ) {
+          this.setState({
+            loggedInStatus: "NOT_LOGGED_IN",
+            user: {}
+          });
+        }
+      })
+      .catch(error => {
+        console.log("check login error", error);
+      });
+  }
+
+  handleSuccessfulAuth(data) {
+    this.props.handleLogin(data);
+    this.props.history.push("/dashboard");
+  }
+
+  handleLogoutClick() {
+    axios
+      .delete("http://localhost:3001/logout", { withCredentials: true })
+      .then(response => {
+        this.props.handleLogout();
+      })
+      .catch(error => {
+        console.log("logout error", error);
+      });
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
+  handleLogout() {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    });
+  }
+
+  handleLogin(data) {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      user: data.user
+    });
+  }
 
   render() {
     return (
