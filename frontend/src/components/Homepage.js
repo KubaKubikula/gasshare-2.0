@@ -11,14 +11,14 @@ class Homepage extends Component {
             <br /><br />
             <h1>Find your drive and share a gas spendings.</h1>
             <br />
-            <p class="lead">Simply if you are driving from place to place or hitchhiking<br /> and want to share you ride/gas money</p>
+            <p className="lead">Simply if you are driving from place to place or hitchhiking<br /> and want to share you ride/gas money</p>
             <br /><br />
-            <p class="lead">
+            <p className="lead">
                 <Link to="/login">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
+                <a href="#" className="btn btn-lg btn-secondary fw-bold border-white bg-white">Start with login</a><br /><br />
                 </Link>
                 <Link to="/learn">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+                <a href="#" className="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </Link>
             </p>
             
