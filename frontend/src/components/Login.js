@@ -75,22 +75,24 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         const { email, password } = this.state;
-    
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+              email: this.state.email, 
+              password: this.state.password
+          })
+        };
+
         axios
           .post(
-            "http://localhost:8000/login",
-            {
-              user: {
-                email: email,
-                password: password
-              }
-            },
-            { withCredentials: true }
+            "http://localhost:8000/login/",
+            requestOptions
           )
-          .then(response => {
-            if (response.data.logged_in) {
-              this.props.handleSuccessfulAuth(response.data);
-            }
+          .then(response => response.json())
+          .then(data => {
+                  console.log(data);
+                  //this.props.handleSuccessfulAuth(data);
           })
           .catch(error => {
             console.log("login error", error);
