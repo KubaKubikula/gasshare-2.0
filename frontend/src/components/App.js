@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../css/App.css';
 import axios from "axios";
 
@@ -8,7 +8,6 @@ import Drives from './Drives';
 import Hitchhiker from './Hitchhiker';
 import Driver from './Driver';
 import Register from './Register';
-import { PropTypes } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -36,8 +35,16 @@ class App extends Component {
   }
 
   checkLoginStatus() {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+          withCredentials : true
+      })
+    };
+
     axios
-      .get("http://localhost:8000/loggedin", { withCredentials: true })
+      .get("http://localhost:8000/loggedin/", requestOptions)
       .then(response => {
         if (
           response.loggedIn === "true" &&
@@ -150,12 +157,12 @@ class App extends Component {
           <br /><br />
           <h2>I have</h2>
           <div>
-          <Link to="/driver">
-            <input className="btn btn-primary" type="button" value="Car" />
+          <Link className="btn btn-primary" to="/driver">
+            Car
           </Link>
           <br /><br />
-          <Link to="/hitchhiker">
-            <input className="btn btn-primary" type="button" value="Gas Money" />
+          <Link className="btn btn-primary"  to="/hitchhiker">
+            Gas Money
           </Link>
           </div>
           <br /><br />

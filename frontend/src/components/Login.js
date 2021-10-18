@@ -1,25 +1,21 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../css/App.css';
 import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
+//import FacebookLogin from 'react-facebook-login';
 import axios from "axios";
-import { PropTypes } from 'react'
 
 import {
     Link
 } from "react-router-dom";
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-    }
     render () {
         const responseGoogle = (response) => {
             console.log(response);
         }
-        const responseFacebook = (response) => {
-            console.log(response);
-        }
+        //const responseFacebook = (response) => {
+        //    console.log(response);
+        //}
         
         return (
           <div>
@@ -75,7 +71,6 @@ class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        const { email, password } = this.state;
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
