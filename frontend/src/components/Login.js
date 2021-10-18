@@ -42,7 +42,13 @@ class Login extends Component {
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', passClass: ''};
+        this.state = {
+            email: '',
+            password: '',
+            passClass: '',
+            flashMessage: '',
+            flashClass: 'd-none'
+        };
         
         this.handleFocusPass = this.handleFocusPass.bind(this);
         this.handleBlurPass = this.handleBlurPass.bind(this);
@@ -74,25 +80,26 @@ class LoginForm extends Component {
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-              email: this.state.email, 
-              password: this.state.password
-          })
+          body: { 
+              'email': this.state.email, 
+              'password': this.state.password
+          }
         };
+
+        console.log(requestOptions);
 
         axios
           .post(
-            "http://localhost:8000/login/",
+            "http://127.0.0.1:8000/login/",
             requestOptions
           )
           .then(data => {
                   console.log(data);
                   this.props.handleSuccessfulAuth(data);
-                  //this.props.history.push('/home');
-                  window.location.href = '/home';
+                  //window.location.href = '/home';
           })
           .catch(error => {
-            console.log("login error", error);
+            this.setState({flashMessage: error.response.data.message, flashClass: ''}) 
           });
         event.preventDefault();
       }
@@ -100,6 +107,9 @@ class LoginForm extends Component {
     render() {
         return (
         <div>
+            <div className={`${this.state.flashClass} alert alert-fixed alert-secondary`} role="alert">
+                {this.state.flashMessage}
+            </div>
             <div className="owl">
             <div className={`hand ${this.state.passClass}`}></div>
             <div className={`hand hand-r ${this.state.passClass}`}></div>

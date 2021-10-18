@@ -27,5 +27,10 @@ class LoginUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'password']
 
-    def valid_login(self):
-        return True
+    def valid_login(self, email, password):      
+        try:
+            user = User.objects.get(email=email, password=password )
+            return user
+        except:
+            return False
+        

@@ -36,15 +36,12 @@ class App extends Component {
 
   checkLoginStatus() {
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-          withCredentials : true
-      })
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     };
 
     axios
-      .get("http://localhost:8000/loggedin/", requestOptions)
+      .get("http://127.0.0.1:8000/loggedin/", requestOptions)
       .then(response => {
         if (
           response.loggedIn === "true" &&
@@ -86,7 +83,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.checkLoginStatus();
+    fetch("http://127.0.0.1:8000/loggedin/");
+    //this.checkLoginStatus();
   }
 
   handleLogout() {
