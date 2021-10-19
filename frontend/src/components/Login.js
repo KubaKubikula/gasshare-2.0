@@ -55,7 +55,11 @@ class LoginForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+    componentDidMount() {
+        fetch("http://127.0.0.1:8000/loggedin/");
+        //this.checkLoginStatus();
+      }
+
     handleFocusPass(event)
     {
         this.setState({passClass: 'password'});
@@ -96,7 +100,7 @@ class LoginForm extends Component {
           .then(data => {
                   console.log(data);
                   this.props.handleSuccessfulAuth(data);
-                  //window.location.href = '/home';
+                  window.location.href = '/home';
           })
           .catch(error => {
             this.setState({flashMessage: error.response.data.message, flashClass: ''}) 

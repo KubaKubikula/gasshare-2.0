@@ -36,8 +36,9 @@ class App extends Component {
 
   checkLoginStatus() {
     const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: { 'token' : localStorage.getItem('token') }
     };
 
     axios
@@ -49,7 +50,7 @@ class App extends Component {
         ) {
           this.setState({
             loggedInStatus: "LOGGED_IN",
-            user: {}
+            user: response.user
           });
         } else if (
           !response.loggedIn &
@@ -83,8 +84,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/loggedin/");
-    //this.checkLoginStatus();
+    this.checkLoginStatus();
   }
 
   handleLogout() {
@@ -95,6 +95,8 @@ class App extends Component {
   }
 
   handleLogin(data) {
+    localStorage.setItem(data.user.token);
+    
     this.setState({
       loggedInStatus: "LOGGED_IN",
       user: data.user
