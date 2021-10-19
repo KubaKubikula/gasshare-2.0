@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.ModelSerializer):  
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'token']
+        fields = ['id', 'email', 'password']
 
     def valid_login(self, email, password):      
         try:

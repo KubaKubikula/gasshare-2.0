@@ -34,7 +34,7 @@ def login(request):
             return JsonResponse({
                 "LoggedIn": "false",
                 "message" : "email or password doesn't match",
-                "user" : "false"
+                "user" : data
             }, status=400)
 
 @csrf_exempt

@@ -55,10 +55,6 @@ class LoginForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount() {
-        fetch("http://127.0.0.1:8000/loggedin/");
-        //this.checkLoginStatus();
-      }
 
     handleFocusPass(event)
     {
@@ -103,6 +99,7 @@ class LoginForm extends Component {
                   window.location.href = '/home';
           })
           .catch(error => {
+            console.log(error);
             this.setState({flashMessage: error.response.data.message, flashClass: ''}) 
           });
         event.preventDefault();

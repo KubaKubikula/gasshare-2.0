@@ -42,7 +42,7 @@ class App extends Component {
     };
 
     axios
-      .get("http://127.0.0.1:8000/loggedin/", requestOptions)
+      .post("http://127.0.0.1:8000/loggedin/", requestOptions)
       .then(response => {
         if (
           response.loggedIn === "true" &&
@@ -95,8 +95,8 @@ class App extends Component {
   }
 
   handleLogin(data) {
-    localStorage.setItem(data.user.token);
-    
+    console.log(data);
+    localStorage.setItem("token", data.data.user.token);
     this.setState({
       loggedInStatus: "LOGGED_IN",
       user: data.user
