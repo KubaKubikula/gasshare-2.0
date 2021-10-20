@@ -8,6 +8,7 @@ import Drives from './Drives';
 import Hitchhiker from './Hitchhiker';
 import Driver from './Driver';
 import Register from './Register';
+import Home from './Home';
 
 import {
   BrowserRouter as Router,
@@ -26,11 +27,9 @@ class App extends Component {
 
     this.state = {
       loggedInStatus: false,
-      user: {}
     };
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -62,8 +61,11 @@ class App extends Component {
   }
 
   handleSuccessfulAuth(data) {
-    this.handleLogin(data);
-    //this.history.push("/dashboard");
+    localStorage.setItem("token", data.data.user.token);
+    
+    this.setState({
+      loggedInStatus: true
+    });
   }
 
   componentDidMount() {
@@ -75,19 +77,10 @@ class App extends Component {
     localStorage.setItem('userEmail', '');
 
     this.setState({
-      loggedInStatus: false,
-      user: {}
+      loggedInStatus: false
     });
 
     window.location.href = '/';
-  }
-
-  handleLogin(data) {
-    localStorage.setItem("token", data.data.user.token);
-    this.setState({
-      loggedInStatus: true,
-      user: data.user
-    });
   }
 
   render() {
@@ -152,37 +145,6 @@ class App extends Component {
       </div>
       </Router>
     );
-
-    function Home() {
-      return (
-        <div>
-          <br /><br />
-          <br /><br />
-          <h2>I have</h2>
-          <div>
-          <Link className="btn btn-primary" to="/driver">
-            Car
-          </Link>
-          <br /><br />
-          <Link className="btn btn-primary"  to="/hitchhiker">
-            Gas Money
-          </Link>
-          </div>
-          <br /><br />
-          <br /><br />
-        </div>
-      );
-    }
-
-
-    function Learn() {
-      return ( 
-        <div>
-        <h2>Learn</h2>
-          some description how to use it
-        </div>
-      );
-    }
   }
 }
 

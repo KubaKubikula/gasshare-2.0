@@ -99,7 +99,6 @@ class LoginForm extends Component {
                   window.location.href = '/home';
           })
           .catch(error => {
-            console.log(error);
             this.setState({flashMessage: error.response.data.message, flashClass: ''}) 
           });
         event.preventDefault();
