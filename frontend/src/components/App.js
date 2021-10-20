@@ -75,7 +75,7 @@ class App extends Component {
     localStorage.setItem('userEmail', '');
 
     this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
+      loggedInStatus: false,
       user: {}
     });
 
@@ -83,10 +83,9 @@ class App extends Component {
   }
 
   handleLogin(data) {
-    console.log(data);
     localStorage.setItem("token", data.data.user.token);
     this.setState({
-      loggedInStatus: "LOGGED_IN",
+      loggedInStatus: true,
       user: data.user
     });
   }
@@ -124,22 +123,22 @@ class App extends Component {
             </Route>
             <Route path="/home">
               {this.state.loggedInStatus === true 
-              ?<Home /> 
+              ? <Home /> 
               : <Redirect to="/" />}
             </Route>
             <Route path="/driver">
               {this.state.loggedInStatus === true 
-              ?<Driver />
+              ? <Driver />
               : <Redirect to="/" />}
             </Route>
             <Route path="/hitchhiker">
               {this.state.loggedInStatus === true 
-              ?<Hitchhiker />
+              ? <Hitchhiker />
               : <Redirect to="/" />} 
             </Route>
             <Route path="/drives">
               {this.state.loggedInStatus === true 
-              ?<Drives />
+              ? <Drives />
               : <Redirect to="/" />}  
             </Route>
             <Route path="/">
