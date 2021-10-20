@@ -9,5 +9,6 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 class Drive(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     drive_from = models.CharField(max_length=100, blank=True, default='')
-    drive_to = models.TextField()
+    drive_to = models.CharField(max_length=100, blank=True, default='')
     time = models.DateTimeField(auto_now_add=True)
+    hitchhike = models.BooleanField(blank=False)

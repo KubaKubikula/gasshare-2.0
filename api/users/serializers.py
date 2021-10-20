@@ -6,10 +6,10 @@ import random
 class UserSerializer(serializers.ModelSerializer):
     
     password2 = serializers.CharField(style={'input_type', 'password'}, write_only=True)
-
+    
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'password2']
+        fields = ['id', 'email', 'password', 'password2','token']
 
     def save(self):
         user = User(email=self.validated_data['email'])
@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.token = '' . join(random.choice(letters) for i in range(100))
         user.save()
 
-        return user
+        return {"email" : user.email, "token" : user.token }
 
 class LoginUserSerializer(serializers.ModelSerializer):  
     class Meta:
@@ -45,8 +45,8 @@ class UserLoggedInSerializer(serializers.ModelSerializer):
 
     def valid_token(self, token):      
         try:
-            user = User.objects.get(token=token)
-            return user
+            User.objects.get(token=token)
+            return True
         except:
             return False
         

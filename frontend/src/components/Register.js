@@ -75,12 +75,13 @@ class RegisterForm extends Component {
         
         fetch('http://127.0.0.1:8000/register/', requestOptions)
             .catch((error) => {
-                console.error('Error:', error);
+                this.setState({flashMessage: error.message, flashClass: ''}) 
             })
             .then(response => response.json())
             .then(data => {
-                    console.log(data);
-                    this.setState({flashMessage: Object.values(data)[0][0], flashClass: ''}) 
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('userEmail', data.email);
+                    window.location.href = '/home'; 
             });
 
         // <FacebookLogin
@@ -99,7 +100,7 @@ class RegisterForm extends Component {
             <div className={`${this.state.flashClass} alert alert-fixed alert-secondary`} role="alert">
                 {this.state.flashMessage}
             </div>
-            <div class="owl">
+            <div className="owl">
             <div className={`hand ${this.state.passClass}`}></div>
             <div className={`hand hand-r ${this.state.passClass}`}></div>
             <div className={`arms ${this.state.passClass} `}>
@@ -108,20 +109,20 @@ class RegisterForm extends Component {
             </div>
             </div>
             <form onSubmit={this.handleSubmit}>
-                <div class="form">
-                    <div class="control">
-                        <label for="email" class="fa fa-envelope"></label>
+                <div className="form">
+                    <div className="control">
+                        <label htmlFor="email" className="fa fa-envelope"></label>
                         <input id="email" placeholder="Email" type="email" value={this.state.email} onChange={this.handleChange}></input>
                     </div>
-                    <div class="control">
-                        <label for="password" class="fa fa-asterisk"></label>
+                    <div className="control">
+                        <label htmlFor="password" className="fa fa-asterisk"></label>
                         <input value={this.state.password} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
                     </div>
-                    <div class="control">
-                        <label for="password2" class="fa fa-asterisk"></label>
+                    <div className="control">
+                        <label htmlFor="password2" className="fa fa-asterisk"></label>
                         <input value={this.state.password2} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password2" placeholder="Password again" type="password" />
                     </div>
-                    <input class="btn btn-primary" type="submit" value="Register me" />
+                    <input className="btn btn-primary" type="submit" value="Register me" />
                 </div>
             </form>
         </div>

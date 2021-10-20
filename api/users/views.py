@@ -12,10 +12,10 @@ def register(request):
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             try:
-                serializer.save()
+                user = serializer.save()
             except:
                 return JsonResponse({"password": "Passwords are not same"}, status=400)
-            return JsonResponse(serializer.data, status=201)
+            return JsonResponse(user, status=201)
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
@@ -44,9 +44,9 @@ def loggedin(request):
     if request.method == 'POST':
         user = serializer.valid_token(data["body"]["token"])
         if user != False:  
-            return JsonResponse({"loggedIn": "true", "user": user}, status=200)
+            return JsonResponse({"loggedIn": "true"}, status=200)
         else:
-            return JsonResponse({"LoggedIn": "false", "user": []}, status=400)
+            return JsonResponse({"LoggedIn": "false"}, status=400)
 
 @csrf_exempt
 def logout(request):

@@ -29,7 +29,6 @@ class App extends Component {
     };
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -49,16 +48,14 @@ class App extends Component {
           this.state.loggedInStatus === "NOT_LOGGED_IN"
         ) {
           this.setState({
-            loggedInStatus: "LOGGED_IN",
-            user: response.user
+            loggedInStatus: "LOGGED_IN"
           });
         } else if (
           !response.loggedIn &
           (this.state.loggedInStatus === "LOGGED_IN")
         ) {
           this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
-            user: {}
+            loggedInStatus: "NOT_LOGGED_IN"
           });
         }
       })
@@ -72,26 +69,20 @@ class App extends Component {
     //this.history.push("/dashboard");
   }
 
-  handleLogoutClick() {
-    axios
-      .delete("http://localhost:3001/logout", { withCredentials: true })
-      .then(response => {
-        this.handleLogout();
-      })
-      .catch(error => {
-        console.log("logout error", error);
-      });
-  }
-
   componentDidMount() {
     this.checkLoginStatus();
   }
 
   handleLogout() {
+    localStorage.setItem('token', '');
+    localStorage.setItem('userEmail', '');
+
     this.setState({
       loggedInStatus: "NOT_LOGGED_IN",
       user: {}
     });
+
+    window.location.href = '/';
   }
 
   handleLogin(data) {
@@ -112,8 +103,11 @@ class App extends Component {
             <Link to="/"><h3 style={{color:'white'}} className="float-md-start mb-0">GasShare</h3></Link>
             <nav className="nav nav-masthead justify-content-center float-md-end">
               <NavLink to="/" exact={true} activeClassName='nav-link active' className="nav-link">Home</NavLink>
-              <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
-              <NavLink to="/learn" activeClassName='nav-link active' className="nav-link">Learn more</NavLink>
+              {this.state.loggedInStatus == "NOT_LOGGED_IN"
+              ? <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
+              : <NavLink to="/user" activeClassName='nav-link active' className="nav-link">jakub.zient@gmail.com</NavLink> 
+              }
+              <a href="#" onClick={this.handleLogout}  activeClassName='nav-link active' className="nav-link">Logout</a>
             </nav>
           </div>
         </header>

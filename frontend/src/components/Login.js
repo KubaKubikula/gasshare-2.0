@@ -85,7 +85,6 @@ class LoginForm extends Component {
               'password': this.state.password
           }
         };
-
         console.log(requestOptions);
 
         axios
