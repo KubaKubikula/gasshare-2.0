@@ -97,9 +97,7 @@ class RegisterForm extends Component {
     render() {
         return (
         <div>
-            <div className={`${this.state.flashClass} alert alert-fixed alert-secondary`} role="alert">
-                {this.state.flashMessage}
-            </div>
+            
             <div className="owl">
             <div className={`hand ${this.state.passClass}`}></div>
             <div className={`hand hand-r ${this.state.passClass}`}></div>
