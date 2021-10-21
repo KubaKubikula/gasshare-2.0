@@ -48,7 +48,8 @@ class LoginForm extends Component {
             password: '',
             passClass: '',
             flashMessage: '',
-            flashClass: 'd-none'
+            flashClass: 'd-none',
+            displayLoginSpinner: 'd-none'
         };
         
         this.handleFocusPass = this.handleFocusPass.bind(this);
@@ -86,7 +87,6 @@ class LoginForm extends Component {
               'password': this.state.password
           }
         };
-        console.log(requestOptions);
 
         axios
           .post(
@@ -94,9 +94,10 @@ class LoginForm extends Component {
             requestOptions
           )
           .then(data => {
-                  console.log(data);
-                  this.props.handleSuccessfulAuth(data);
-                  window.location.href = '/home';
+                this.setState({displayLoginSpinner: ''});
+                
+                localStorage.setItem("token", data.data.user.token);
+                this.props.loggedInStatus = true;            
           })
           .catch(error => {
             this.setState({flashMessage: error.response.data.message, flashClass: ''}) 
@@ -128,10 +129,13 @@ class LoginForm extends Component {
                         <label htmlFor="password" className="fa fa-asterisk"></label>
                         <input value={this.state.password} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
                     </div>
-                    <input className="btn btn-primary" type="submit" value="Log me in" />
+                    <button className="btn btn-primary" type="submit">
+                        <span className={`spinner-grow spinner-grow-sm ${this.state.displayLoginSpinner}`} role="status" aria-hidden="false"></span>
+                        &nbsp;Log&nbsp;in
+                    </button>
                 </div>
             </form>
-            <Link to="/register">Create account</Link>
+            <Link className="btn btn-primary" to="/register">Create account</Link>
             <br /><br />
         </div>
         );
