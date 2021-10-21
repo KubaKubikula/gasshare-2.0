@@ -1,14 +1,36 @@
 import React, { Component } from 'react';
-import '../css/App.css';
+import '../../css/App.css';
+import { GoogleLogin } from 'react-google-login';
+//import FacebookLogin from 'react-facebook-login';
+import axios from "axios";
 
-class Register extends Component {
+import {
+    Link
+} from "react-router-dom";
+
+class Login extends Component {
+
     render () {
+        const responseGoogle = (response) => {
+            console.log(response);
+        }
+        //const responseFacebook = (response) => {
+        //    console.log(response);
+        //}
+        
         return (
           <div>
             <br /><br />
             <br /><br />
             <br /><br />
-            <RegisterForm />
+            <LoginForm history={this.props.history} handleSuccessfulAuth={this.props.handleSuccessfulAuth} />
+            <GoogleLogin
+              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
             <br /><br />          
             <br />
             <br /><br />
@@ -18,16 +40,16 @@ class Register extends Component {
       }
 }
 
-class RegisterForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
-            password2: '',
             passClass: '',
             flashMessage: '',
-            flashClass: 'd-none'
+            flashClass: 'd-none',
+            displayLoginSpinner: 'd-none'
         };
         
         this.handleFocusPass = this.handleFocusPass.bind(this);
@@ -35,7 +57,7 @@ class RegisterForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+
     handleFocusPass(event)
     {
         this.setState({passClass: 'password'});
@@ -54,45 +76,32 @@ class RegisterForm extends Component {
         if (event.target.id === "password") {
             this.setState({password: event.target.value});
         }
-
-        if (event.target.id === "password2") {
-            this.setState({password2: event.target.value});
-        }
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        
         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                email: this.state.email, 
-                password: this.state.password, 
-                password2: this.state.password2
-            })
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: { 
+              'email': this.state.email, 
+              'password': this.state.password
+          }
         };
-        
-        fetch('http://127.0.0.1:8000/register/', requestOptions)
-            .catch((error) => {
-                this.setState({flashMessage: error.message, flashClass: ''}) 
-            })
-            .then(response => response.json())
-            .then(data => {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('userEmail', data.email);
-                    window.location.href = '/home'; 
-            });
 
-        // <FacebookLogin
-        //       appId="1088597931155576"
-        //       autoLoad
-        //       callback={responseFacebook}
-        //       render={renderProps => (
-        //         <button >This is my custom FB button</button>
-        //       )}
-        //     />  
-    }
+        axios
+          .post(
+            "http://127.0.0.1:8000/login/",
+            requestOptions
+          )
+          .then(data => {
+                this.setState({displayLoginSpinner: ''});
+                this.props.handleSuccessfulAuth(data);
+          })
+          .catch(error => {
+            this.setState({flashMessage: error.response.data.message, flashClass: ''}) 
+          });
+        event.preventDefault();
+      }
 
     render() {
         return (
@@ -118,16 +127,17 @@ class RegisterForm extends Component {
                         <label htmlFor="password" className="fa fa-asterisk"></label>
                         <input value={this.state.password} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password" placeholder="Password" type="password" />
                     </div>
-                    <div className="control">
-                        <label htmlFor="password2" className="fa fa-asterisk"></label>
-                        <input value={this.state.password2} onChange={this.handleChange}  onBlur={this.handleBlurPass} onFocus={this.handleFocusPass} id="password2" placeholder="Password again" type="password" />
-                    </div>
-                    <input className="btn btn-primary" type="submit" value="Register me" />
+                    <button className="btn btn-primary" type="submit">
+                        <span className={`spinner-grow spinner-grow-sm ${this.state.displayLoginSpinner}`} role="status" aria-hidden="false"></span>
+                        &nbsp;Log&nbsp;in
+                    </button>
                 </div>
             </form>
+            <Link className="btn btn-primary" to="/register">Create account</Link>
+            <br /><br />
         </div>
         );
     }
 }
 
-export default Register;
+export default Login;

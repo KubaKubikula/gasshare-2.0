@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import axios from "axios";
 
-import Login from './Login';
-import Homepage from './Homepage';
-import Drives from './Drives';
-import Hitchhiker from './Hitchhiker';
-import Driver from './Driver';
-import Register from './Register';
-import Home from './Home';
+import Login from './pages/Login';
+import Homepage from './pages/Homepage';
+import Drives from './pages/Drives';
+import Hitchhiker from './pages/Hitchhiker';
+import Driver from './pages/Driver';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import Topmenu from './Topmenu';
 
 import {
   BrowserRouter as Router,
@@ -87,21 +88,7 @@ class App extends Component {
     return (
       <Router>  
         <div className="App">
-        <header className="mb-auto">
-          <div>
-            <Link to="/"><h3 style={{color:'white'}} className="float-md-start mb-0">GasShare</h3></Link>
-            <nav className="nav nav-masthead justify-content-center float-md-end">
-              <NavLink to="/" exact={true} activeClassName='nav-link active' className="nav-link">Home</NavLink>
-              {this.state.loggedInStatus === false
-              ? <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
-              : <NavLink to="/user" activeClassName='nav-link active' className="nav-link">jakub.zient@gmail.com</NavLink> 
-              }
-              {this.state.loggedInStatus === true ?
-              <a href="#" onClick={this.handleLogout}  activeClassName='nav-link active' className="nav-link">Logout</a>
-              : ''}
-            </nav>
-          </div>
-        </header>
+        <Topmenu />
         <main className="px-3">
           <Switch>
           <Route path="/register">
