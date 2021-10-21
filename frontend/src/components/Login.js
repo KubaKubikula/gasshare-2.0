@@ -95,9 +95,7 @@ class LoginForm extends Component {
           )
           .then(data => {
                 this.setState({displayLoginSpinner: ''});
-                
-                localStorage.setItem("token", data.data.user.token);
-                this.props.loggedInStatus = true;            
+                this.props.handleSuccessfulAuth(data);
           })
           .catch(error => {
             this.setState({flashMessage: error.response.data.message, flashClass: ''}) 

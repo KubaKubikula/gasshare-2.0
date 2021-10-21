@@ -19,51 +19,16 @@ import {
   Redirect
 } from "react-router-dom";
 
-function PrivateRoute({ component: Component, loggedIn : loggedIn, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        loggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
-function PublicRoute({ component: Component, loggedIn : loggedIn, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        !loggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/home",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-  
+
+    this.state = {
+      loggedInStatus: false,
+    };
+
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -81,9 +46,13 @@ class App extends Component {
         if (
           response.data.loggedIn === "true"
         ) {
-          this.props.loggedInStatus = true;
+          this.setState({
+            loggedInStatus: true
+          });
         } else {
-          this.props.loggedInStatus = false
+          this.setState({
+            loggedInStatus: false
+          });
         }
       })
       .catch(error => {
@@ -91,6 +60,13 @@ class App extends Component {
       });
   }
 
+  handleSuccessfulAuth(data) {
+    localStorage.setItem("token", data.data.user.token);
+    
+    this.setState({
+      loggedInStatus: true
+    });
+  }
 
   componentDidMount() {
     this.checkLoginStatus();
@@ -100,7 +76,9 @@ class App extends Component {
     localStorage.setItem('token', '');
     localStorage.setItem('userEmail', '');
 
-    this.props.loggedInStatus = false;
+    this.setState({
+      loggedInStatus: false
+    });
 
     window.location.href = '/';
   }
@@ -114,11 +92,11 @@ class App extends Component {
             <Link to="/"><h3 style={{color:'white'}} className="float-md-start mb-0">GasShare</h3></Link>
             <nav className="nav nav-masthead justify-content-center float-md-end">
               <NavLink to="/" exact={true} activeClassName='nav-link active' className="nav-link">Home</NavLink>
-              {this.props.loggedInStatus === false
+              {this.state.loggedInStatus === false
               ? <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
               : <NavLink to="/user" activeClassName='nav-link active' className="nav-link">jakub.zient@gmail.com</NavLink> 
               }
-              {this.props.loggedInStatus === true ?
+              {this.state.loggedInStatus === true ?
               <a href="#" onClick={this.handleLogout}  activeClassName='nav-link active' className="nav-link">Logout</a>
               : ''}
             </nav>
@@ -126,14 +104,41 @@ class App extends Component {
         </header>
         <main className="px-3">
           <Switch>
-            <PublicRoute path="/register" component={Register} loggedIn={this.props.loggedInStatus} />
-            <PublicRoute path="/login" component={Login} loggedIn={this.props.loggedInStatus} />
-            <PublicRoute path="/" component={Homepage} loggedIn={this.props.loggedInStatus} />
-            
-            <PrivateRoute path="/home" component={Home} loggedIn={this.props.loggedInStatus} />
-            <PrivateRoute path="/driver" component={Driver} loggedIn={this.props.loggedInStatus} />
-            <PrivateRoute path="/hitchhiker" component={Hitchhiker} loggedIn={this.props.loggedInStatus} />
-            <PrivateRoute path="/drives" component={Drives} loggedIn={this.props.loggedInStatus} />
+          <Route path="/register">
+              {this.state.loggedInStatus === false 
+              ? <Register /> 
+              : <Redirect to="/home" />}
+            </Route>
+            <Route path="/login">
+              {this.state.loggedInStatus === false 
+              ? <Login history={this.props.history} handleSuccessfulAuth={this.handleSuccessfulAuth} /> 
+              : <Redirect to="/home" />}
+            </Route>
+            <Route path="/home">
+              {this.state.loggedInStatus === true 
+              ? <Home /> 
+              : <Redirect to="/" />}
+            </Route>
+            <Route path="/driver">
+              {this.state.loggedInStatus === true 
+              ? <Driver />
+              : <Redirect to="/" />}
+            </Route>
+            <Route path="/hitchhiker">
+              {this.state.loggedInStatus === true 
+              ? <Hitchhiker />
+              : <Redirect to="/" />} 
+            </Route>
+            <Route path="/drives">
+              {this.state.loggedInStatus === true 
+              ? <Drives />
+              : <Redirect to="/" />}  
+            </Route>
+            <Route path="/">
+              {this.state.loggedInStatus === false 
+              ? <Homepage />
+              : <Redirect to="/home" />}   
+            </Route>
           </Switch>
         </main> 
         <br /><br /><br /><br /><br />

@@ -39,52 +39,33 @@ class DriverForm extends React.Component {
     }
   
     handleSubmit(event) {
-      event.preventDefault();
-  
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ from: this.state.from, to: this.state.to, when: this.state.when })
       };
-  
+
       fetch('http://localhost:8000/drives/', requestOptions)
           .then(response => response.json())
           .then(data => this.setState({ postId: data.id }));
-      }
+
+      event.preventDefault();
+    }
   
     render() {
       return (
         <div>
         <form onSubmit={this.handleSubmit}>
-          <table style={{display: 'block', width: '100px', margin: '0px auto'}}>
-          <tbody>
-            <tr>
-              <td>
-              From:
-              </td>
-              <td>
-                <input type="text" name="from" value={this.state.from} onChange={this.handleChange} /> Insert my location
-              </td>
-            </tr>
-            <tr>
-              <td>
-              To:
-              </td>
-              <td>
-                <input type="text" name="to" value={this.state.to} onChange={this.handleChange} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-              When:
-              </td>
-              <td>
-                <input type="text" name="when" value={this.state.when} onChange={this.handleChange} />
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <input type="submit" value="Submit" />
+          <div class="form-group">
+            <input type="text" class="form-control" name="from"  id="from" placeholder="from" value={this.state.from} onChange={this.handleChange} />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="to" id="to" placeholder="to" value={this.state.to} onChange={this.handleChange} />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="when" id="when" placeholder="when" value={this.state.when} onChange={this.handleChange} />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         </div>
       );
