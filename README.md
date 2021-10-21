@@ -9,7 +9,13 @@ Login -- this is for tomorrow
 
   https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/
   
-  subscribe to aws- 300 usd at to mam kam nahodit
+  TODO:
+  
+ x zahashovat heslo
+ 
+ x zprovoznit 2 formuláře a výpis jízd
+ 
+ 
 
 
 
