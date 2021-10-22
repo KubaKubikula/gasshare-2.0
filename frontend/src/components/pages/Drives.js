@@ -8,9 +8,16 @@ class Drives extends Component {
     
     constructor(props) {
         super(props);
+        this.state = {
+            drives : []
+        }
     }
 
-    async getDrives() {
+    componentDidMount() {
+        this.state.drives = this.getDrives();
+    }
+
+    getDrives() {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
@@ -18,27 +25,13 @@ class Drives extends Component {
         
         fetch('http://localhost:8000/drives/', requestOptions)
             .then(response => {
+                console.log(response);
                 return response;
         }) 
-
-       return '{}';
     }    
 
-    
-
-    render() {
-        return this.getDrives().then(response => {
-            var arr = [];
-            Object.keys(response).forEach(function(key) {
-                arr.push(response[key]);
-            });
-            return <ul>{arr.map(item => <MyAppChild key={item.label} label={item.label} value={item.value} />)}</ul>;
-        });   
-    }
-}
-class MyAppChild extends React.Component {
-    render() {
-        return <li>{this.props.label + " - " + this.props.value}</li>;
+    render() {   
+        return <div>{this.state.drives}</div>  
     }
 }
 
