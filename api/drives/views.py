@@ -15,8 +15,8 @@ def drive_list(request):
         data = JSONParser().parse(request)
         serializer = DriveSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
+            serializer.save()  
+            return JsonResponse({"xx" : "ccc"}, status=200)
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt

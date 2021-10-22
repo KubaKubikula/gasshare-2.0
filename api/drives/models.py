@@ -11,4 +11,4 @@ class Drive(models.Model):
     drive_from = models.CharField(max_length=100, blank=True, default='')
     drive_to = models.CharField(max_length=100, blank=True, default='')
     time = models.DateTimeField(auto_now_add=True)
-    hitchhike = models.BooleanField(blank=False)
+    hitchhike = models.BooleanField(blank=True, default= False)

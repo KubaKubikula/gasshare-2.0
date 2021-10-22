@@ -30,6 +30,8 @@ class App extends Component {
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+
+    this.checkLoginStatus();
   }
 
   checkLoginStatus() {
@@ -67,10 +69,6 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    this.checkLoginStatus();
-  }
-
   handleLogout() {
     localStorage.setItem('token', '');
     localStorage.setItem('userEmail', '');
@@ -89,6 +87,9 @@ class App extends Component {
         <Topmenu />
         <main className="px-3">
           <Switch>
+          <Route exact path="/drives">
+            <Drives />: 
+          </Route>
           <Route path="/register">
               {this.state.loggedInStatus === false 
               ? <Register /> 
@@ -114,11 +115,7 @@ class App extends Component {
               ? <Hitchhiker />
               : <Redirect to="/" />} 
             </Route>
-            <Route path="/drives">
-              {this.state.loggedInStatus === true 
-              ? <Drives />
-              : <Redirect to="/" />}  
-            </Route>
+            
             <Route path="/">
               {this.state.loggedInStatus === false 
               ? <Homepage />

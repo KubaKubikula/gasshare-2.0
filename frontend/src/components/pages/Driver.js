@@ -42,14 +42,21 @@ class DriverForm extends React.Component {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: this.state.from, to: this.state.to, when: this.state.when })
+        body: JSON.stringify({ 
+          drive_from: this.state.from, 
+          drive_to : this.state.to, 
+          time: this.state.when 
+        })
       };
+      
+      event.preventDefault();
 
       fetch('http://localhost:8000/drives/', requestOptions)
-          .then(response => response.json())
-          .then(data => this.setState({ postId: data.id }));
+          .then(response => {
+            window.location.href = '/drives'; 
+          })
 
-      event.preventDefault();
+      
     }
   
     render() {
