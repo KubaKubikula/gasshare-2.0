@@ -11,13 +11,13 @@ const Drives = (props) => {
         getDrives();
     });
 
-    async function getDrives() {
+    function getDrives() {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         };
 
-        await axios
+        axios
             .get(
                 "http://127.0.0.1:8000/drives/",
                 requestOptions
