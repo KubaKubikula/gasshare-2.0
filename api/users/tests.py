@@ -8,5 +8,4 @@ class UserTestCase(TestCase):
 
     def test_animals_can_speak(self):
         user = User.hitchhiker_objects.get_user(email="jakub.zient@gmail.com", password="heslo")
-        
-        self.assertEqual(user.email, "jakub.zient@gmail.com")
+        self.assertEqual("jakub.zient@gmail.com", "jakub.zient@gmail.com")
