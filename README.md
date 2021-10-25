@@ -9,6 +9,8 @@ Login -- this is for tomorrow
 
   https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/
   
+  https://reactjs.org/docs/hooks-effect.html
+  
   TODO:
   
  x zahashovat heslo
