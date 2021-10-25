@@ -1,0 +1,21 @@
+(0.002) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+(0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.002) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+(0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT (1) AS "a" FROM "users_user" WHERE "users_user"."email" = 'jakub.zienjt@gmail.com' LIMIT 1; args=('jakub.zienjt@gmail.com',)
+"POST /register/ HTTP/1.1" 400 51
+(0.003) SELECT (1) AS "a" FROM "users_user" WHERE "users_user"."email" = 'jakub.zddienjt@gmail.com' LIMIT 1; args=('jakub.zddienjt@gmail.com',)
+(0.001) INSERT INTO "users_user" ("created", "email", "password", "token") VALUES ('2021-10-25T11:56:55.579661+00:00'::timestamptz, 'jakub.zddienjt@gmail.com', '$bcrypt-sha256$v=2,t=2b,r=12$5KNNDEalNFBkxIVZaJVl0e$COAee5CRH15VOICS226cQYRDECCgavq', 'IzoaVEvDJfgbTdWXIOXztsBEwlcfPIGSDnkwwGlRiDGKzCIdQCuUEScjyhyOTWGkcGEAgPFFGSNlNGktFNhBAyfSueAQjYZoqkZV') RETURNING "users_user"."id"; args=(datetime.datetime(2021, 10, 25, 11, 56, 55, 579661, tzinfo=<UTC>), 'jakub.zddienjt@gmail.com', '$bcrypt-sha256$v=2,t=2b,r=12$5KNNDEalNFBkxIVZaJVl0e$COAee5CRH15VOICS226cQYRDECCgavq', 'IzoaVEvDJfgbTdWXIOXztsBEwlcfPIGSDnkwwGlRiDGKzCIdQCuUEScjyhyOTWGkcGEAgPFFGSNlNGktFNhBAyfSueAQjYZoqkZV')
+"POST /register/ HTTP/1.1" 201 150

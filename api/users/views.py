@@ -3,11 +3,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from users.serializers import UserSerializer, LoginUserSerializer, UserLoggedInSerializer
+import logging
 # Create your views here.
 
 @csrf_exempt
 def register(request):
     if request.method == 'POST':
+        logger = logging.getLogger('project.interesting.stuff')
+        logger.warning('Watch out!')
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
