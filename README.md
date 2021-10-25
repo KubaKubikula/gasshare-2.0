@@ -12,9 +12,9 @@ Login -- this is for tomorrow
   TODO:
   
  x zahashovat heslo
- 
  x zprovoznit 2 formuláře a výpis jízd
- 
+
+ sudo kill $(lsof -t -i:8000) 
  
 
 

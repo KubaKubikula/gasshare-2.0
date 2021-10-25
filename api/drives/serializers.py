@@ -5,5 +5,6 @@ class DriveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Drive
+        db_table = 'drives'
         fields = ['id', 'created', 'drive_from', 'drive_to','time', 'hitchhike']
         

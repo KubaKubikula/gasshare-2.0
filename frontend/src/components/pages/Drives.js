@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
 import '../../css/App.css';
 
+import {
+    Link
+} from "react-router-dom";
+
+let movies = [];
+const moviesItems = movies !== null ? movies.map(movie => (
+    <Link to={`/detail/${movie.id}`} className="main-carousel__item-link" key={movie.id}>
+        <div className="main-carousel__item">
+            <img
+                src={movie.backdrop_path !== null ? `http://image.tmdb.org/t/p/w342/${movie.backdrop_path}` : ''}
+                className="main-carousel__item-img"
+                alt={movie.original_title ? movie.original_title : movie.original_name}/>
+            <h4 className="main-carousel__item-title">
+                {movie.original_title ? movie.original_title : movie.original_name}
+            </h4>
+        </div>
+    </Link>
+)) :
+null;
+
 class Drives extends Component {
     
     constructor(props) {
@@ -9,21 +29,6 @@ class Drives extends Component {
             drives : []
         }
     }
-
-    const moviesItems = movies !== null ? movies.map(movie => (
-            <Link to={`/detail/${movie.id}`} className="main-carousel__item-link" key={movie.id}>
-                <div className="main-carousel__item">
-                    <img
-                        src={movie.backdrop_path !== null ? `http://image.tmdb.org/t/p/w342/${movie.backdrop_path}` : ''}
-                        className="main-carousel__item-img"
-                        alt={movie.original_title ? movie.original_title : movie.original_name}/>
-                    <h4 className="main-carousel__item-title">
-                        {movie.original_title ? movie.original_title : movie.original_name}
-                    </h4>
-                </div>
-            </Link>
-        )) :
-    null;
 
     componentDidMount() {
         this.getDrives();

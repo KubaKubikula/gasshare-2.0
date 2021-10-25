@@ -2,6 +2,7 @@ from rest_framework import serializers
 from users.models import User
 import string
 import random
+from passlib.hash import bcrypt_sha256
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -9,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
+        db_table = 'users'
         fields = ['id', 'email', 'password', 'password2','token']
 
     def save(self):
@@ -19,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         if password != password2:
             raise serializers.ValidationError({'password': 'Passwords must match!'})
-        user.password = password
+        user.password = bcrypt_sha256.hash(password)
         letters = string.ascii_letters
         user.token = '' . join(random.choice(letters) for i in range(100))
         user.save()
