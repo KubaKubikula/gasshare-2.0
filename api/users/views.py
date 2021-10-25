@@ -10,7 +10,7 @@ import logging
 def register(request):
     if request.method == 'POST':
         logger = logging.getLogger('project.interesting.stuff')
-        logger.warning('Watch out!')
+        logger.warning('Watch ouxxxt!')
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
