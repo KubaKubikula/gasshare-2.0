@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from drives.models import Drive
 from drives.serializers import DriveSerializer
+import logging
 
 @csrf_exempt
 def drive_list(request):
@@ -13,6 +14,7 @@ def drive_list(request):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
+        logging.warning(data)
         serializer = DriveSerializer(data=data)
         if serializer.is_valid():
             serializer.save()  

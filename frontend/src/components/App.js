@@ -80,7 +80,7 @@ const App = (props) => {
         <Route exact path="/drives">
           <Drives />
         </Route>
-        <Route path="/register">
+          <Route path="/register">
             {loggedInStatus === false 
             ? <Register /> 
             : <Redirect to="/home" />}
@@ -90,16 +90,14 @@ const App = (props) => {
             ? <Login handleSuccessfulAuth={handleSuccessfulAuth} /> 
             : <Redirect to="/home" />}
           </Route>
+          <Route path="/driver">
+            <Driver />
+          </Route>
           <Route path="/home">
             {loggedInStatus === true 
             ? <Home /> 
             : <Redirect to="/" />}
-          </Route>
-          <Route path="/driver">
-            {loggedInStatus === true 
-            ? <Driver />
-            : <Redirect to="/" />}
-          </Route>
+          </Route> 
           <Route path="/hitchhiker">
             {loggedInStatus === true 
             ? <Hitchhiker />

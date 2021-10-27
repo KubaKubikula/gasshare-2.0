@@ -15,7 +15,7 @@ const Topmenu = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link style={{ textDecoration: 'none',  color: 'white' }} to="/">Gasshare</Link>
           </Typography>
-          {props.loggedInStatus == false 
+          {props.loggedInStatus === false 
           ? <Button href="/login" color="inherit">Login</Button>
           : <Button onClick={props.handleLogout} color="inherit">Logout</Button>}
         </Toolbar>

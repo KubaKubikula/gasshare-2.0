@@ -14,14 +14,13 @@ const Home = (props) => {
           }}
         >
           <Container maxWidth="sm" align="center">
-            <h2>I have</h2>
             <div>
             <Button variant="contained" href="/driver">
-              Car
+              I am Driver
             </Button>
             <br /><br />
             <Button variant="contained" href="/hitchhiker">
-              Gas Money
+              I am Hitchhiker
             </Button>
             </div>
           </Container>
