@@ -11,6 +11,7 @@ import Driver from './pages/Driver';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Topmenu from './Topmenu';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   BrowserRouter as Router,
@@ -19,6 +20,9 @@ import {
   Redirect
 } from "react-router-dom";
 
+const theme = createTheme({palette: {
+  mode: 'dark',
+},});
 
 class App extends Component {
 
@@ -83,7 +87,8 @@ class App extends Component {
 
   render() {
     return (
-      <Router>  
+      <Router>
+        <ThemeProvider theme={theme}>  
         <CssBaseline />
         <div className="App">
         <Topmenu />
@@ -127,6 +132,7 @@ class App extends Component {
         </main> 
         <br /><br /><br /><br /><br />
       </div>
+      </ThemeProvider>
       </Router>
     );
   }
