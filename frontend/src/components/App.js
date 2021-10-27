@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import '../css/App.css';
 import axios from "axios";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,22 +25,14 @@ const theme = createTheme({palette: {
   mode: 'dark',
 },});
 
-class App extends Component {
+const App = (props) => {
+  const [loggedInStatus, setLoggedInStatus] = useState(false);
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    checkLoginStatus();
+  });
 
-    this.state = {
-      loggedInStatus: false,
-    };
-
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-
-    this.checkLoginStatus();
-  }
-
-  checkLoginStatus() {
+  const checkLoginStatus = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -53,13 +45,9 @@ class App extends Component {
         if (
           response.data.loggedIn === "true"
         ) {
-          this.setState({
-            loggedInStatus: true
-          });
+          setLoggedInStatus(true);
         } else {
-          this.setState({
-            loggedInStatus: false
-          });
+          setLoggedInStatus(false);
         }
       })
       .catch(error => {
@@ -67,77 +55,70 @@ class App extends Component {
       });
   }
 
-  handleSuccessfulAuth(data) {
+  const handleSuccessfulAuth = (data) => {
     localStorage.setItem("token", data.data.user.token);
     
-    this.setState({
-      loggedInStatus: true
-    });
+    setLoggedInStatus(true);
   }
 
-  handleLogout() {
+  const handleLogout = () => {
     localStorage.setItem('token', '');
     localStorage.setItem('userEmail', '');
 
-    this.setState({
-      loggedInStatus: false
-    });
-
+    setLoggedInStatus(false);
     window.location.href = '/';
   }
 
-  render() {
-    return (
-      <Router>
-        <ThemeProvider theme={theme}>  
-        <CssBaseline />
-        <div className="App">
-        <Topmenu />
-        <FlashMessage />
-        <main className="px-3">
-          <Switch>
-          <Route exact path="/drives">
-            <Drives />
+  return (
+    <Router>
+      <ThemeProvider theme={theme}>  
+      <CssBaseline />
+      <div className="App">
+      <Topmenu />
+      <FlashMessage />
+      <main className="px-3">
+        <Switch>
+        <Route exact path="/drives">
+          <Drives />
+        </Route>
+        <Route path="/register">
+            {loggedInStatus === false 
+            ? <Register /> 
+            : <Redirect to="/home" />}
           </Route>
-          <Route path="/register">
-              {this.state.loggedInStatus === false 
-              ? <Register /> 
-              : <Redirect to="/home" />}
-            </Route>
-            <Route path="/login">
-              {this.state.loggedInStatus === false 
-              ? <Login history={this.props.history} handleSuccessfulAuth={this.handleSuccessfulAuth} /> 
-              : <Redirect to="/home" />}
-            </Route>
-            <Route path="/home">
-              {this.state.loggedInStatus === true 
-              ? <Home /> 
-              : <Redirect to="/" />}
-            </Route>
-            <Route path="/driver">
-              {this.state.loggedInStatus === true 
-              ? <Driver />
-              : <Redirect to="/" />}
-            </Route>
-            <Route path="/hitchhiker">
-              {this.state.loggedInStatus === true 
-              ? <Hitchhiker />
-              : <Redirect to="/" />} 
-            </Route>
-            
-            <Route path="/">
-              {this.state.loggedInStatus === false 
-              ? <Homepage />
-              : <Redirect to="/home" />}   
-            </Route>
-          </Switch>
-        </main> 
-        <br /><br /><br /><br /><br />
-      </div>
-      </ThemeProvider>
-      </Router>
-    );
-  }
+          <Route path="/login">
+            {loggedInStatus === false 
+            ? <Login handleSuccessfulAuth={this.handleSuccessfulAuth} /> 
+            : <Redirect to="/home" />}
+          </Route>
+          <Route path="/home">
+            {loggedInStatus === true 
+            ? <Home /> 
+            : <Redirect to="/" />}
+          </Route>
+          <Route path="/driver">
+            {loggedInStatus === true 
+            ? <Driver />
+            : <Redirect to="/" />}
+          </Route>
+          <Route path="/hitchhiker">
+            {loggedInStatus === true 
+            ? <Hitchhiker />
+            : <Redirect to="/" />} 
+          </Route>
+          
+          <Route path="/">
+            {loggedInStatus === false 
+            ? <Homepage />
+            : <Redirect to="/home" />}   
+          </Route>
+        </Switch>
+      </main> 
+      <br /><br /><br /><br /><br />
+    </div>
+    </ThemeProvider>
+    </Router>
+  );
 }
 
 export default App;
