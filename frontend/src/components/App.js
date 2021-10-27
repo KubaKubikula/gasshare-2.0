@@ -97,7 +97,7 @@ class App extends Component {
         <main className="px-3">
           <Switch>
           <Route exact path="/drives">
-            <Drives />: 
+            <Drives />
           </Route>
           <Route path="/register">
               {this.state.loggedInStatus === false 
