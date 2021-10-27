@@ -68,6 +68,26 @@ const App = (props) => {
     window.location.href = '/';
   }
 
+  function PrivateRoute({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          loggedInStatus ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  }
+
   return (
     <Router>
       <ThemeProvider theme={theme}>  
