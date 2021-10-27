@@ -3,6 +3,7 @@ from users.models import User
 import string
 import random
 from passlib.hash import bcrypt_sha256
+import logging
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -15,9 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     def save(self):
         user = User(email=self.validated_data['email'])
-
+    
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
+        logging.warning(password)
 
         if password != password2:
             raise serializers.ValidationError({'password': 'Passwords must match!'})
@@ -34,11 +36,17 @@ class LoginUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'password']
 
     def valid_login(self, email, password):      
-        try:
-            user = User.objects.get(email=email, password=password )
-            return user
-        except:
-            return False
+        logging.warning(email)
+        logging.warning(bcrypt_sha256.hash(password))
+
+        user = User.hash_pass_objects.get(email=email)
+
+        if user:
+            if bcrypt_sha256.verify(password, user.password):
+                return user
+            
+        return False
+        
 
 class UserLoggedInSerializer(serializers.ModelSerializer):
     class Meta:

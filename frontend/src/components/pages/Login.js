@@ -1,4 +1,6 @@
 import * as React from 'react';
+import axios from "axios";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,11 +31,29 @@ const Login = (props) =>  {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
+    
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        email: data.get('email'),
+        password: data.get('password'),
+      }
+    };
+
+    axios
+      .post("http://127.0.0.1:8000/login/", requestOptions)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log("check login error", error);
+      });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../css/App.css';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';

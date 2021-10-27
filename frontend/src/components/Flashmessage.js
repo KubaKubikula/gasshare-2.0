@@ -4,7 +4,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 const FlashMessage = (props) => {
     return (
-        <div style={{position: "absolute", width: "100%"}}>
+        <div style={{position: "absolute", width: "100%", display: "none"}}>
             <Alert severity="success">
                 <AlertTitle>Info</AlertTitle>
                 This is an info alert — <strong>check it out!</strong>

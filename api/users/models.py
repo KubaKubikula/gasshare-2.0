@@ -15,4 +15,4 @@ class User(models.Model):
     token = models.CharField(max_length=100, blank=True, default='')
 
     objects = models.Manager()
-    hitchhiker_objects = UserHashPassManager()
+    hash_pass_objects = UserHashPassManager()
