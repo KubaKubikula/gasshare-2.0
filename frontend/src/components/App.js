@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from "axios";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -83,6 +84,7 @@ class App extends Component {
   render() {
     return (
       <Router>  
+        <CssBaseline />
         <div className="App">
         <Topmenu />
         <main className="px-3">

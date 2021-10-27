@@ -1,30 +1,41 @@
 import React, { Component } from 'react';
 import '../css/App.css';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import {
     Link,
     NavLink,
 } from "react-router-dom";
 
-class Topmenu extends Component {
-    render () { return (
-        <header className="mb-auto">
-            <div>
-                <Link to="/"><h3 style={{color:'white'}} className="float-md-start mb-0">GasShare</h3></Link>
-                <nav className="nav nav-masthead justify-content-center float-md-end">
-                    <NavLink to="/" exact={true} activeClassName='nav-link active' className="nav-link">Home</NavLink>
-                    {false === false
-                    ? <NavLink to="/login" activeClassName='nav-link active' className="nav-link">Login</NavLink>
-                    : <NavLink to="/user" activeClassName='nav-link active' className="nav-link">jakub.zient@gmail.com</NavLink> 
-                    }
-                    {true === true ?
-                    <a href="#" onClick={this.handleLogout}  activeClassName='nav-link active' className="nav-link">Logout</a>
-                    : ''}
-                </nav>
-            </div>
-        </header>
+const Topmenu = (props) => {
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar enableColorOnDark >
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
     );
-  }
+  
 }
 
 export default Topmenu;
