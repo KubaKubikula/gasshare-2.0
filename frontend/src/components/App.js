@@ -11,6 +11,7 @@ import Driver from './pages/Driver';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Topmenu from './Topmenu';
+import FlashMessage from './Flashmessage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
@@ -92,6 +93,7 @@ class App extends Component {
         <CssBaseline />
         <div className="App">
         <Topmenu />
+        <FlashMessage />
         <main className="px-3">
           <Switch>
           <Route exact path="/drives">
