@@ -56,8 +56,7 @@ const App = (props) => {
   }
 
   const handleSuccessfulAuth = (data) => {
-    localStorage.setItem("token", data.data.user.token);
-    
+    localStorage.setItem("token", data.user.token);
     setLoggedInStatus(true);
   }
 
@@ -74,7 +73,7 @@ const App = (props) => {
       <ThemeProvider theme={theme}>  
       <CssBaseline />
       <div className="App">
-      <Topmenu />
+      <Topmenu loggedInStatus={loggedInStatus} handleLogout={handleLogout} />
       <FlashMessage />
       <main className="px-3">
         <Switch>
@@ -88,7 +87,7 @@ const App = (props) => {
           </Route>
           <Route path="/login">
             {loggedInStatus === false 
-            ? <Login handleSuccessfulAuth={this.handleSuccessfulAuth} /> 
+            ? <Login handleSuccessfulAuth={handleSuccessfulAuth} /> 
             : <Redirect to="/home" />}
           </Route>
           <Route path="/home">

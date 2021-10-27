@@ -1,28 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../css/App.css';
-import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
-class Home extends Component {
-    render() {
+const Home = (props) => {
         return (
-          <div>
-            <br /><br />
-            <br /><br />
+          <Box     
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Container maxWidth="sm" align="center">
             <h2>I have</h2>
             <div>
-            <Link className="btn btn-primary" to="/driver">
+            <Button variant="contained" href="/driver">
               Car
-            </Link>
+            </Button>
             <br /><br />
-            <Link className="btn btn-primary"  to="/hitchhiker">
+            <Button variant="contained" href="/hitchhiker">
               Gas Money
-            </Link>
+            </Button>
             </div>
-            <br /><br />
-            <br /><br />
-          </div>
+          </Container>
+          </Box>
         );
-      }
 }
 
 export default Home;

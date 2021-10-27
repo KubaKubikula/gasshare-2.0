@@ -49,7 +49,8 @@ const Login = (props) =>  {
     axios
       .post("http://127.0.0.1:8000/login/", requestOptions)
       .then(response => {
-        console.log(response.data)
+        console.log(response.data);
+        props.handleSuccessfulAuth(response.data);
       })
       .catch(error => {
         console.log("check login error", error);
