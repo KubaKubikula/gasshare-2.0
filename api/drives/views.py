@@ -14,8 +14,7 @@ def drive_list(request):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        logging.warning(data)
-        serializer = DriveSerializer(data=data)
+        serializer = DriveSerializer(data=data["body"])
         if serializer.is_valid():
             serializer.save()  
             return JsonResponse({"xx" : "ccc"}, status=200)

@@ -38,6 +38,7 @@ const Driver = (props) => {
         .post("http://127.0.0.1:8000/drives/", requestOptions)
         .then(response => {
           console.log(response.data);
+          window.location.href = '/drives';
         })
         .catch(error => {
           console.log("check login error", error);
