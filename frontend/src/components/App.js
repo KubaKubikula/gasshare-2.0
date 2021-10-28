@@ -11,9 +11,11 @@ import Hitchhiker from './pages/Hitchhiker';
 import Driver from './pages/Driver';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Chat from './pages/Chatt';
 import Topmenu from './Topmenu';
 import FlashMessage from './Flashmessage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 import {
   BrowserRouter as Router,
@@ -30,7 +32,7 @@ const App = (props) => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
   const [flashMessage, setFlashMessage] = useState("");
 
-  const user = useSelector('selectUser');
+  //const user = useSelector(selectUser);
 
   useEffect(() => {
     checkLoginStatus();
@@ -117,6 +119,9 @@ const App = (props) => {
       <FlashMessage flashMessage={flashMessage} />
       <main className="px-3">
         <Switch>
+        <Route exact path="/chat">
+          <Chat />
+        </Route>
         <Route exact path="/drives">
           <Drives />
         </Route>
@@ -151,6 +156,7 @@ const App = (props) => {
           </Route>
         </Switch>
       </main> 
+      
       <br /><br /><br /><br /><br />
     </div>
     </ThemeProvider>

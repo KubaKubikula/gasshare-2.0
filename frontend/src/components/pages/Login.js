@@ -1,7 +1,6 @@
 import * as React from 'react';
 import axios from "axios";
 import { useDispatch } from 'react-redux';
-import { login } from '../../features/userSlice'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -49,7 +48,7 @@ const Login = (props) =>  {
       }
     };
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     axios
       .post("http://127.0.0.1:8000/login/", requestOptions)
@@ -57,9 +56,6 @@ const Login = (props) =>  {
         console.log(response.data);
         props.handleSuccessfulAuth(response.data);
         
-        dispatch(() => login(
-          {user : "user"}
-        ));
       })
       .catch(error => {
         props.handleFleshmessage("Email or password doesn't match");
