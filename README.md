@@ -25,6 +25,10 @@ Login -- this is for tomorrow
  sudo kill $(lsof -t -i:8000) 
  websocket
  
+ https://github.com/tj/node-prune
+ 
+ vymyslet jak redukovat node_modules jinak se to nedá nikde nasadit :-D demence
+ 
 
 
 
