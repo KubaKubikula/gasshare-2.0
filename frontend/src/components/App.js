@@ -30,7 +30,7 @@ const App = (props) => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
   const [flashMessage, setFlashMessage] = useState("");
 
-  const user = useSelector(selectUser);
+  const user = useSelector('selectUser');
 
   useEffect(() => {
     checkLoginStatus();
