@@ -22,12 +22,16 @@ Login -- this is for tomorrow
  
  x logger testovaní
 
- sudo kill $(lsof -t -i:8000) 
- websocket
- 
- https://github.com/tj/node-prune
- 
- vymyslet jak redukovat node_modules jinak se to nedá nikde nasadit :-D demence
+
+Non useful notes
+------------------
+
+sudo kill $(lsof -t -i:8000) 
+websocket
+
+https://github.com/tj/node-prune
+
+https://www.npmjs.com/package/google-maps-react
  
 
 
