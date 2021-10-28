@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import requirePropFactory from '@mui/utils/requirePropFactory';
+import { GoogleLogin } from 'react-google-login';
 
 function Copyright(props) {
   return (
@@ -61,6 +62,10 @@ const Login = (props) =>  {
         props.handleFleshmessage("Email or password doesn't match");
       });
   };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -124,6 +129,23 @@ const Login = (props) =>  {
                 </Link>
               </Grid>
             </Grid>
+            <GoogleLogin
+              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              render={renderProps => (
+                <Button 
+                  type="button"
+                  fullWidth
+                  variant="outlined"
+                  sx={{ mt: 3, mb: 2 }}
+                  onClick={renderProps.onClick} 
+                  disabled={renderProps.disabled}
+                >Google login</Button>
+              )}
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
