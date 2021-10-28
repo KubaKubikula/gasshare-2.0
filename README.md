@@ -22,9 +22,21 @@ Login -- this is for tomorrow
  
  x logger testovaní
 
- sudo kill $(lsof -t -i:8000) 
- websocket
- 
 
+Non useful notes
+------------------
+
+sudo kill $(lsof -t -i:8000) 
+websocket
+
+https://github.com/tj/node-prune
+
+https://www.npmjs.com/package/google-maps-react
+
+https://mui.com/components/pickers/
+
+https://developers.google.com/maps/documentation/javascript/places-autocomplete
+
+https://codesandbox.io/s/e6jpx?file=/demo.js:2568-2578
 
 
