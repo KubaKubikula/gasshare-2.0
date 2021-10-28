@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/App.css';
 import axios from "axios";
 import CssBaseline from '@mui/material/CssBaseline';
+import { useSelector } from 'react-redux';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -28,6 +29,8 @@ const theme = createTheme({palette: {
 const App = (props) => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
   const [flashMessage, setFlashMessage] = useState("");
+
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     checkLoginStatus();
