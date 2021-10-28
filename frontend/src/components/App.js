@@ -27,6 +27,7 @@ const theme = createTheme({palette: {
 
 const App = (props) => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
 
   useEffect(() => {
     checkLoginStatus();
@@ -58,6 +59,22 @@ const App = (props) => {
   const handleSuccessfulAuth = (data) => {
     localStorage.setItem("token", data.user.token);
     setLoggedInStatus(true);
+  }
+
+  const handleFleshmessage = (message) => {
+    setFlashMessage(message);
+    sleep(function(){
+      setFlashMessage("");
+    });
+  }
+
+  function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function sleep(fn, ...args) {
+      await timeout(3000);
+      return fn(...args);
   }
 
   const handleLogout = () => {
@@ -94,7 +111,7 @@ const App = (props) => {
       <CssBaseline />
       <div className="App">
       <Topmenu loggedInStatus={loggedInStatus} handleLogout={handleLogout} />
-      <FlashMessage />
+      <FlashMessage flashMessage={flashMessage} />
       <main className="px-3">
         <Switch>
         <Route exact path="/drives">
@@ -107,7 +124,7 @@ const App = (props) => {
           </Route>
           <Route path="/login">
             {loggedInStatus === false 
-            ? <Login handleSuccessfulAuth={handleSuccessfulAuth} /> 
+            ? <Login handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth} /> 
             : <Redirect to="/home" />}
           </Route>
           <Route path="/driver">

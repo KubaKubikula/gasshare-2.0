@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import requirePropFactory from '@mui/utils/requirePropFactory';
 
 function Copyright(props) {
   return (
@@ -53,7 +54,7 @@ const Login = (props) =>  {
         props.handleSuccessfulAuth(response.data);
       })
       .catch(error => {
-        console.log("check login error", error);
+        props.handleFleshmessage("Email or password doesn't match");
       });
   };
 
