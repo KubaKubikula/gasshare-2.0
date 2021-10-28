@@ -23,6 +23,7 @@ Login -- this is for tomorrow
  x logger testovaní
 
  sudo kill $(lsof -t -i:8000) 
+ websocket
  
 
 
