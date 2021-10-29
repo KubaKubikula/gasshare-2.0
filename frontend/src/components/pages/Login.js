@@ -64,7 +64,27 @@ const Login = (props) =>  {
   };
 
   const responseGoogle = (response) => {
-    console.log(response);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        profile: response.get('profileObj'),
+        token: response.get('tokenObj'),
+      }
+    };
+
+    axios
+      .post("http://127.0.0.1:8000/googlelogin/", requestOptions)
+      .then(response => {
+        console.log(response.data);
+        props.handleSuccessfulAuth(response.data);
+        
+      })
+      .catch(error => {
+        props.handleFleshmessage("Email or password doesn't match");
+      });
+
+      console.log(response);
   }
 
   return (
@@ -130,7 +150,7 @@ const Login = (props) =>  {
               </Grid>
             </Grid>
             <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              clientId="223666799897-gd0ne1hr1ui05n57o4pp9384055q9mjd.apps.googleusercontent.com"
               render={renderProps => (
                 <Button 
                   type="button"

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drives.apps.DrivesConfig',
     'users.apps.UsersConfig',
+    'chatmessages.apps.MessagesConfig',
     'corsheaders',
 ]
 

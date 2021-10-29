@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
-from users.serializers import UserSerializer, LoginUserSerializer, UserLoggedInSerializer
+from users.serializers import UserSerializer, LoginUserSerializer, UserLoggedInSerializer, GoogleLoginUserSerializer
 import logging
 # Create your views here.
 
@@ -31,7 +31,7 @@ def login(request):
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"id" : user.id, "email" : user.email, "token" : user.token}
+                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar, "token" : user.token}
             }, status=200)
         else:
             return JsonResponse({
@@ -55,3 +55,22 @@ def loggedin(request):
 def logout(request):
     if request.method == 'POST':
         return JsonResponse({"LoggedIn": "false", "user": ""}, status=400)
+
+@csrf_exempt
+def googlelogin(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = GoogleLoginUserSerializer(data=data)
+        user = serializer.save_data(data=data)
+        if user:
+            return JsonResponse({
+                "loggedIn": "true",
+                "message": "User has been logged in",
+                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar, user.token : "token"}
+            }, status=200)
+        else:
+            return JsonResponse({
+                "LoggedIn": "false",
+                "message" : "email or password doesn't match",
+                "user" : data
+            }, status=400)

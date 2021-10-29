@@ -7,7 +7,7 @@ class Hitchhiker extends Component {
         <div>
             <br /><br />
             <br /><br />
-        <h2>Where are you going ?</h2>
+            <h2>Where are you going ?</h2>
             <input type="text" value="From address" />
             <br />
             <input type="text" value="Address" />

@@ -12,4 +12,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('drives.urls')),
     path('', include('users.urls')),
+    path('', include('chatmessages.urls')),
 ]
