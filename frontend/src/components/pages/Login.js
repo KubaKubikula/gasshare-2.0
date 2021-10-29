@@ -87,6 +87,10 @@ const Login = (props) =>  {
       console.log(response);
   }
 
+  const responseGoogleFailure = (response) => {
+    alert("bad login");
+  }
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -150,7 +154,7 @@ const Login = (props) =>  {
               </Grid>
             </Grid>
             <GoogleLogin
-              clientId="223666799897-gd0ne1hr1ui05n57o4pp9384055q9mjd.apps.googleusercontent.com"
+              clientId="223666799897-xgd0ne1hr1ui05n57o4pp9384055q9mjd.apps.googleusercontent.com"
               render={renderProps => (
                 <Button 
                   type="button"
@@ -163,7 +167,7 @@ const Login = (props) =>  {
               )}
               buttonText="Login"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={responseGoogleFailure}
               cookiePolicy={'single_host_origin'}
             />
           </Box>

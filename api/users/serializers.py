@@ -72,6 +72,7 @@ class GoogleLoginUserSerializer(serializers.ModelSerializer):
         user.firstname = data.firstname
         user.google_id = data.google_id
         user.google_token = data.google_token
+        user.save()
             
-        return False
+        return user
         
