@@ -22,7 +22,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Robutek Cloud
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -68,10 +68,10 @@ const Login = (props) =>  {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: {
-        profile: response.get('profileObj'),
-        token: response.get('tokenObj'),
+        data: response.data,
       }
     };
+    console.log(requestOptions);
 
     axios
       .post("http://127.0.0.1:8000/googlelogin/", requestOptions)
@@ -154,7 +154,7 @@ const Login = (props) =>  {
               </Grid>
             </Grid>
             <GoogleLogin
-              clientId="223666799897-xgd0ne1hr1ui05n57o4pp9384055q9mjd.apps.googleusercontent.com"
+              clientId="223666799897-gd0ne1hr1ui05n57o4pp9384055q9mjd.apps.googleusercontent.com"
               render={renderProps => (
                 <Button 
                   type="button"

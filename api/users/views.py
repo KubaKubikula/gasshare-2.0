@@ -60,6 +60,7 @@ def logout(request):
 def googlelogin(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
+        logging.warning(data)
         serializer = GoogleLoginUserSerializer(data=data)
         user = serializer.save_data(data=data)
         if user:
