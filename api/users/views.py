@@ -31,7 +31,7 @@ def login(request):
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar, "token" : user.token}
+                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar_url, "token" : user.token}
             }, status=200)
         else:
             return JsonResponse({

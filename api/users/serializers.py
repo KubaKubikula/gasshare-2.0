@@ -33,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.ModelSerializer):  
     class Meta:
         model = User
-        fields = ['id', 'email', 'password']
+        fields = ['id', 'email', 'password', 'token', 'avatar_url', 'firstname', 'lastname', 'google_id', 'google_token']
 
     def valid_login(self, email, password):      
         logging.warning(email)
