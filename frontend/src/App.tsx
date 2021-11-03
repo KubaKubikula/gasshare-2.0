@@ -15,12 +15,12 @@ import Topmenu from './components/Topmenu';
 import FlashMessage from './components/Flashmessage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  RouteProps
 } from "react-router-dom";
 
 const theme = createTheme({palette: {
@@ -34,31 +34,11 @@ const App = (props:any) => {
   //const user = useSelector(selectUser);
 
   useEffect(() => {
-    checkLoginStatus();
+    console.log("constructor");
+    console.log(loggedInStatus);
   });
 
-  const checkLoginStatus = () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: { 'token' : localStorage.getItem('token') }
-    };
-
-    axios
-      .post("http://127.0.0.1:8000/loggedin/", requestOptions)
-      .then(response => {
-        if (
-          response.data.loggedIn === "true"
-        ) {
-          setLoggedInStatus(true);
-        } else {
-          setLoggedInStatus(false);
-        }
-      })
-      .catch(error => {
-        console.log("check login error", error);
-      });
-  }
+  
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
@@ -89,25 +69,30 @@ const App = (props:any) => {
     window.location.href = '/';
   }
 
-  // function PrivateRoute({ children, ...rest }) {
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={({ location }) =>
-  //         loggedInStatus ? (
-  //           children
-  //         ) : (
-  //           <Redirect
-  //             to={{
-  //               pathname: "/login",
-  //               state: { from: location }
-  //             }}
-  //           />
-  //         )
-  //       }
-  //     />
-  //   );
-  // }
+  interface PrivateRouteProps extends RouteProps {
+    // tslint:disable-next-line:no-any
+
+}
+
+const PrivateRoute = (props: PrivateRouteProps) => {
+    const { children, ...rest } = props;
+    console.log(loggedInStatus);
+    console.log("route");
+      return (
+        <Route
+            {...rest}
+            render={(routeProps) =>
+              loggedInStatus === true ? (
+                  children
+                ) : (
+                  <Redirect to="/login" />
+                )
+            }
+        />
+    
+    );
+    
+};
 
   return (
     <Router>
@@ -118,9 +103,9 @@ const App = (props:any) => {
       <FlashMessage flashMessage={flashMessage} />
       <main className="px-3">
         <Switch>
-        <Route exact path="/chat">
+        <PrivateRoute path="/chat">
           <Chat />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/drives">
           <Drives />
         </Route>
