@@ -90,8 +90,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
             }
         />
     
-    );
-    
+    ); 
 };
 
   return (

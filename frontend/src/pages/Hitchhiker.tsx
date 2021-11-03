@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+const Hitchhiker = (props:any) => {
 
-class Hitchhiker extends Component {
-    render() {
-        return ( 
+    return ( 
         <div>
             <br /><br />
             <br /><br />
@@ -17,8 +15,8 @@ class Hitchhiker extends Component {
             <br /><br />
             <br /><br />
         </div>
-        );
-    }
+    );
+
 }
 
 export default Hitchhiker;

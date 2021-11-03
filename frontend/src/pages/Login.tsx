@@ -1,4 +1,3 @@
-import * as React from 'react';
 import axios from "axios";
 
 import Avatar from '@mui/material/Avatar';
