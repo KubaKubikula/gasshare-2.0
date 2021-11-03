@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 import CssBaseline from '@mui/material/CssBaseline';
-import { useSelector } from 'react-redux';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -13,14 +11,14 @@ import Home from './pages/Home';
 import Chat from './pages/Chatt';
 import Topmenu from './components/Topmenu';
 import FlashMessage from './components/Flashmessage';
+import PrivateRoute from './components/PrivateRoute';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  RouteProps
+  Redirect
 } from "react-router-dom";
 
 const theme = createTheme({palette: {
@@ -37,8 +35,6 @@ const App = (props:any) => {
     console.log("constructor");
     console.log(loggedInStatus);
   });
-
-  
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
@@ -68,30 +64,6 @@ const App = (props:any) => {
     setLoggedInStatus(false);
     window.location.href = '/';
   }
-
-  interface PrivateRouteProps extends RouteProps {
-    // tslint:disable-next-line:no-any
-
-}
-
-const PrivateRoute = (props: PrivateRouteProps) => {
-    const { children, ...rest } = props;
-    console.log(loggedInStatus);
-    console.log("route");
-      return (
-        <Route
-            {...rest}
-            render={(routeProps) =>
-              loggedInStatus === true ? (
-                  children
-                ) : (
-                  <Redirect to="/login" />
-                )
-            }
-        />
-    
-    ); 
-};
 
   return (
     <Router>
