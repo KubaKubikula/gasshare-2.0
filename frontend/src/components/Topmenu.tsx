@@ -13,6 +13,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
 
 const Topmenu = (props:any) => {
     const menuId = 'primary-search-account-menu';
@@ -136,7 +137,8 @@ const Topmenu = (props:any) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar alt="Jakub Zientek" src="https://lh3.googleusercontent.com/a-/AOh14GjXfifsl2yVibl8xvSy3LyqKDbZbWlwoE5s46Vn=s96-c" />
+              
             </IconButton>
           </Box> : <span></span>}
          {localStorage.getItem("LoggedIn") === "true" ? 

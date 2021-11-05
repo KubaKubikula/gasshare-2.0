@@ -30,6 +30,7 @@ const App = (props:any) => {
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
+    localStorage.setItem("avatar_url", data.user.avatar_url);
     localStorage.setItem("LoggedIn", "true");
   }
 
@@ -53,6 +54,7 @@ const App = (props:any) => {
     localStorage.setItem('token', '');
     localStorage.setItem('userEmail', '');
     localStorage.setItem("LoggedIn", "false");
+    localStorage.setItem("avatar_url", "");
     window.location.href = '/';
   }
 
