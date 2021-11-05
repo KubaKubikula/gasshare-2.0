@@ -63,15 +63,17 @@ class UserLoggedInSerializer(serializers.ModelSerializer):
 class GoogleLoginUserSerializer(serializers.ModelSerializer):  
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'token', 'avatar_url', 'firstname', 'lastname', 'google_id', 'google_token']
+        fields = ['id', 'email', 'password', 'token', 'avatar_url', 'firstname', 'lastname', 'google_id']
 
     def save_data(self, data):      
-        user = User.hash_pass_objects.get(email=data.email)
-        user.avatar_url = data.avatar_url
-        user.lastname = data.lastname
-        user.firstname = data.firstname
-        user.google_id = data.google_id
-        user.google_token = data.google_token
+        user = User.objects.get(email=data['email'])
+        
+        user.avatar_url = data['imageUrl']
+        user.lastname = data['familyName']
+        user.firstname = data['givenName']
+        user.google_id = data['googleId']
+        letters = string.ascii_letters
+        user.token = '' . join(random.choice(letters) for i in range(100))
         user.save()
             
         return user

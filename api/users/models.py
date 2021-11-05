@@ -16,8 +16,6 @@ class User(models.Model):
     first_name = models.CharField(max_length=100, blank=True, default='')
     last_name = models.CharField(max_length=100, blank=True, default='')
     avatar_url = models.CharField(max_length=100, blank=True, default='')
-    google_id = models.CharField(max_length=100, blank=True, default='')
-    google_token = models.CharField(max_length=100, blank=True, default='')
     
     objects = models.Manager()
     hash_pass_objects = UserHashPassManager()

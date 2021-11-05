@@ -47,11 +47,13 @@ const Login = (props:any) =>  {
   };
 
   const responseGoogle = (response:any) => {
+    console.log(response);
+    
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: {
-        data: response.data,
+        data: response,
       }
     };
     console.log(requestOptions);

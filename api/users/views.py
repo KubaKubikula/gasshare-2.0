@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from users.serializers import UserSerializer, LoginUserSerializer, UserLoggedInSerializer, GoogleLoginUserSerializer
 import logging
-# Create your views here.
 
 @csrf_exempt
 def register(request):
@@ -65,14 +64,13 @@ def logout(request):
 def googlelogin(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        logging.warning(data)
-        serializer = GoogleLoginUserSerializer(data=data)
-        user = serializer.save_data(data=data)
+        serializer = GoogleLoginUserSerializer(data['body']['data']['profileObj'])
+        user = serializer.save_data(data['body']['data']['profileObj'])
         if user:
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar, user.token : "token"}
+                "user" : {"email" : user.email, "avatar": user.avatar_url, user.token : "token"}
             }, status=200)
         else:
             return JsonResponse({
