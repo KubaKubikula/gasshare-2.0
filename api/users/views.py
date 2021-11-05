@@ -12,13 +12,18 @@ def register(request):
         logger = logging.getLogger('project.interesting.stuff')
         logger.warning('Watch ouxxxt!')
         data = JSONParser().parse(request)
-        serializer = UserSerializer(data=data)
+        logger.warning(data)
+        serializer = UserSerializer(data=data["body"])
         if serializer.is_valid():
             try:
                 user = serializer.save()
             except:
                 return JsonResponse({"password": "Passwords are not same"}, status=400)
-            return JsonResponse(user, status=201)
+            return JsonResponse({
+                "loggedIn": "true",
+                "message": "User has been logged in",
+                "user" : {"email" : user.email, "avatar": user.avatar_url, "token" : user.token}
+            }, status=200)
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
@@ -31,7 +36,7 @@ def login(request):
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"id" : user.id, "email" : user.email, "avatar": user.avatar_url, "token" : user.token}
+                "user" : {"email" : user.email, "avatar": user.avatar_url, "token" : user.token}
             }, status=200)
         else:
             return JsonResponse({

@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         db_table = 'users'
-        fields = ['id', 'email', 'password', 'password2','token']
+        fields = ['id', 'email', 'password','password2','token']
 
     def save(self):
         user = User(email=self.validated_data['email'])

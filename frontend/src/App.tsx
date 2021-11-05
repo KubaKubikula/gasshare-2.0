@@ -72,7 +72,7 @@ const App = (props:any) => {
           <Drives />
         </PrivateRoute>
           <Route path="/register"> 
-            <Register /> 
+            <Register handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth}/> 
           </Route>
           <Route path="/login">
             <Login handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth} /> 

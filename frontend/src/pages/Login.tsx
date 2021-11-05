@@ -30,7 +30,7 @@ const Login = (props:any) =>  {
       headers: { 'Content-Type': 'application/json' },
       body: {
         email: data.get('email'),
-        password: data.get('password'),
+        password: data.get('password')
       }
     };
 

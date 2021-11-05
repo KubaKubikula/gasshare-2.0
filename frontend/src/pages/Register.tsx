@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,11 +16,32 @@ const Register = (props:any) =>  {
   const handleSubmit = (event:any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
+    
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        email: data.get('email'),
+        password: data.get('password'),
+        password2: data.get('password2'),
+      }
+    };
+
+    axios
+      .post("http://127.0.0.1:8000/register/", requestOptions)
+      .then(response => {
+        console.log(response.data);
+        props.handleSuccessfulAuth(response.data);
+        
+      })
+      .catch(error => {
+        props.handleFleshmessage("Passwords are not the same");
+      });
   };
 
   return (
@@ -63,10 +86,10 @@ const Register = (props:any) =>  {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="password2"
               label="Password again"
               type="password"
-              id="password"
+              id="password2"
               autoComplete="current-password"
             />
             <Button
