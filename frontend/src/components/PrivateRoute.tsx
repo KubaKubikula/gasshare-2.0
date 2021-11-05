@@ -9,18 +9,14 @@ interface PrivateRouteProps extends RouteProps {
 
 }
 
-function auth() {
-    return true;
-}
-
 const PrivateRoute = (props: PrivateRouteProps) => {
     const { children, ...rest } = props;
-    let loggedInStatus = auth();
+    
       return (
         <Route
             {...rest}
             render={(routeProps) =>
-              loggedInStatus === true ? (
+                localStorage.getItem("LoggedIn") == "true" ? (
                   children
                 ) : (
                   <Redirect to="/login" />

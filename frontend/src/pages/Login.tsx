@@ -34,8 +34,6 @@ const Login = (props:any) =>  {
       }
     };
 
-    //const dispatch = useDispatch();
-
     axios
       .post("http://127.0.0.1:8000/login/", requestOptions)
       .then(response => {

@@ -26,19 +26,11 @@ const theme = createTheme({palette: {
 },});
 
 const App = (props:any) => {
-  const [loggedInStatus, setLoggedInStatus] = useState(false);
   const [flashMessage, setFlashMessage] = useState("");
-
-  //const user = useSelector(selectUser);
-
-  useEffect(() => {
-    console.log("constructor");
-    console.log(loggedInStatus);
-  });
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
-    setLoggedInStatus(true);
+    localStorage.setItem("LoggedIn", "true");
   }
 
   const handleFleshmessage = (message:string) => {
@@ -60,8 +52,7 @@ const App = (props:any) => {
   const handleLogout = () => {
     localStorage.setItem('token', '');
     localStorage.setItem('userEmail', '');
-
-    setLoggedInStatus(false);
+    localStorage.setItem("LoggedIn", "false");
     window.location.href = '/';
   }
 
@@ -70,44 +61,33 @@ const App = (props:any) => {
       <ThemeProvider theme={theme}>  
       <CssBaseline />
       <div className="App">
-      <Topmenu loggedInStatus={loggedInStatus} handleLogout={handleLogout} />
+      <Topmenu handleLogout={handleLogout} />
       <FlashMessage flashMessage={flashMessage} />
       <main className="px-3">
         <Switch>
         <PrivateRoute path="/chat">
           <Chat />
         </PrivateRoute>
-        <Route exact path="/drives">
+        <PrivateRoute exact path="/drives">
           <Drives />
-        </Route>
-          <Route path="/register">
-            {loggedInStatus === false 
-            ? <Register /> 
-            : <Redirect to="/home" />}
+        </PrivateRoute>
+          <Route path="/register"> 
+            <Register /> 
           </Route>
           <Route path="/login">
-            {loggedInStatus === false 
-            ? <Login handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth} /> 
-            : <Redirect to="/home" />}
+            <Login handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth} /> 
           </Route>
-          <Route path="/driver">
+          <PrivateRoute path="/driver">
             <Driver />
-          </Route>
-          <Route path="/home">
-            {loggedInStatus === true 
-            ? <Home /> 
-            : <Redirect to="/" />}
-          </Route> 
-          <Route path="/hitchhiker">
-            {loggedInStatus === true 
-            ? <Hitchhiker />
-            : <Redirect to="/" />} 
-          </Route>
-          
+          </PrivateRoute>
+          <PrivateRoute path="/home">
+            <Home /> 
+          </PrivateRoute> 
+          <PrivateRoute path="/hitchhiker">
+            <Hitchhiker />
+          </PrivateRoute>
           <Route path="/">
-            {loggedInStatus === false 
-            ? <Homepage />
-            : <Redirect to="/home" />}   
+            <Homepage />
           </Route>
         </Switch>
       </main> 

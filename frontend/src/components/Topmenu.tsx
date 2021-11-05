@@ -120,7 +120,7 @@ const Topmenu = (props:any) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link style={{ textDecoration: 'none',  color: 'white' }} to="/">Gasshare</Link>
           </Typography>
-          {props.loggedInStatus === true ? 
+          {localStorage.getItem("LoggedIn") === "true" ? 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="success">
@@ -139,7 +139,7 @@ const Topmenu = (props:any) => {
               <AccountCircle />
             </IconButton>
           </Box> : <span></span>}
-         {props.loggedInStatus === true ? 
+         {localStorage.getItem("LoggedIn") === "true" ? 
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -152,7 +152,7 @@ const Topmenu = (props:any) => {
               <MoreIcon />
             </IconButton>
           </Box> : <span></span>}
-          {props.loggedInStatus === false 
+          {localStorage.getItem("LoggedIn") !== "true"
           ? <Button href="/login" color="inherit">Login</Button>
           : <span></span>}
         </Toolbar>

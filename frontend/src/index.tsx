@@ -18,9 +18,9 @@ const checkLoginStatus = async () => {
       if (
           response.data.loggedIn === "true"
       ) {
-          return true;
+          localStorage.setItem("LoggedIn","true");
       } else {
-          return false
+          localStorage.setItem("LoggedIn","");
       }
       })
       .catch(error => {
