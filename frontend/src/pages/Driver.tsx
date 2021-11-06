@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../config/const";
+import * as React from 'react';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,6 +8,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 const Driver = (props:any) => {
     const handleSubmit = (event:any) => {
@@ -43,7 +47,9 @@ const Driver = (props:any) => {
           console.log("check login error", error);
         });
     };
-
+    
+    const [value, setValue] = React.useState(new Date());
+    
     return (
       <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,16 +65,16 @@ const Driver = (props:any) => {
           Where are you driving ?
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="when"
-              label="When"
-              name="when"
-              autoComplete="when"
-              autoFocus
-            />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            renderInput={(props) => <TextField {...props} />}
+            label="DateTimePicker"
+            value={value}
+            onChange={(newValue:any) => {
+              setValue(newValue);
+            }}
+          />
+        </LocalizationProvider>
           <TextField
             margin="normal"
             required
