@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/const";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -33,7 +34,7 @@ const Register = (props:any) =>  {
     };
 
     axios
-      .post("http://127.0.0.1:8000/register/", requestOptions)
+      .post(API_URL + "register/", requestOptions)
       .then(response => {
         console.log(response.data);
         props.handleSuccessfulAuth(response.data);

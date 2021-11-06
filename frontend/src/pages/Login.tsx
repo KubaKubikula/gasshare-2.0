@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/const";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -35,7 +36,7 @@ const Login = (props:any) =>  {
     };
 
     axios
-      .post("http://127.0.0.1:8000/login/", requestOptions)
+      .post(API_URL + "login/", requestOptions)
       .then(response => {
         console.log(response.data);
         props.handleSuccessfulAuth(response.data);
@@ -59,7 +60,7 @@ const Login = (props:any) =>  {
     console.log(requestOptions);
 
     axios
-      .post("http://127.0.0.1:8000/googlelogin/", requestOptions)
+      .post(API_URL + "googlelogin/", requestOptions)
       .then(response => {
         console.log(response.data);
         props.handleSuccessfulAuth(response.data);
@@ -80,7 +81,7 @@ const Login = (props:any) =>  {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
-          sx={{
+          sx={{ 
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',

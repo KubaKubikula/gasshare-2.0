@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from "../config/const";
 import axios from "axios";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -40,7 +41,7 @@ const Drives = (props:any) => {
     function getDrives() {
         axios
             .get(
-                "http://127.0.0.1:8000/drives/",
+                API_URL + "/drives/",
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }

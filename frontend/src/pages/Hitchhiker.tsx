@@ -1,5 +1,4 @@
 const Hitchhiker = (props:any) => {
-
     return ( 
         <div>
             <br /><br />

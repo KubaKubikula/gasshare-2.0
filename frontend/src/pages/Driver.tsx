@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/const";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -33,7 +34,7 @@ const Driver = (props:any) => {
       };
 
       axios
-        .post("http://127.0.0.1:8000/drives/", requestOptions)
+        .post(API_URL + "drives/", requestOptions)
         .then(response => {
           console.log(response.data);
           window.location.href = '/drives';
