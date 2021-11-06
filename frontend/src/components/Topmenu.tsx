@@ -41,6 +41,15 @@ const Topmenu = (props:any) => {
       setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const AvatarImage:any = () => {
+        console.log(localStorage.getItem("avatar_url"));
+        return (
+          localStorage.getItem("avatar_url")
+          ? <Avatar alt="Jakub Zientek" src={localStorage.getItem("avatar_url")!} />
+          : <AccountCircle />
+        );
+    }
+
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
@@ -107,7 +116,7 @@ const Topmenu = (props:any) => {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle />
+            <AvatarImage />
           </IconButton>
           <p>Profile</p>
         </MenuItem>
@@ -137,8 +146,7 @@ const Topmenu = (props:any) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar alt="Jakub Zientek" src="https://lh3.googleusercontent.com/a-/AOh14GjXfifsl2yVibl8xvSy3LyqKDbZbWlwoE5s46Vn=s96-c" />
-              
+              <AvatarImage />
             </IconButton>
           </Box> : <span></span>}
          {localStorage.getItem("LoggedIn") === "true" ? 
@@ -152,6 +160,7 @@ const Topmenu = (props:any) => {
               color="inherit"
             >
               <MoreIcon />
+              
             </IconButton>
           </Box> : <span></span>}
           {localStorage.getItem("LoggedIn") !== "true"

@@ -30,7 +30,7 @@ const App = () => {
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
-    localStorage.setItem("avatar_url", data.user.avatar_url);
+    localStorage.setItem("avatar_url", data.user.avatar);
     localStorage.setItem("LoggedIn", "true");
     window.location.href = '/home';
   }
