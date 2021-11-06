@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Login from './pages/Login';
@@ -12,26 +12,27 @@ import Chat from './pages/Chatt';
 import Topmenu from './components/Topmenu';
 import FlashMessage from './components/Flashmessage';
 import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom";
 
 const theme = createTheme({palette: {
   mode: 'dark',
 },});
 
-const App = (props:any) => {
+const App = () => {
   const [flashMessage, setFlashMessage] = useState("");
 
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
     localStorage.setItem("avatar_url", data.user.avatar_url);
     localStorage.setItem("LoggedIn", "true");
+    window.location.href = '/home';
   }
 
   const handleFleshmessage = (message:string) => {
@@ -67,18 +68,21 @@ const App = (props:any) => {
       <FlashMessage flashMessage={flashMessage} />
       <main className="px-3">
         <Switch>
-        <PrivateRoute path="/chat">
-          <Chat />
-        </PrivateRoute>
-        <PrivateRoute exact path="/drives">
-          <Drives />
-        </PrivateRoute>
-          <Route path="/register"> 
-            <Register handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth}/> 
-          </Route>
-          <Route path="/login">
+          <PublicRoute path="/login">
             <Login handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth} /> 
-          </Route>
+          </PublicRoute>
+          <PublicRoute path="/register"> 
+            <Register handleFleshmessage={handleFleshmessage} handleSuccessfulAuth={handleSuccessfulAuth}/> 
+          </PublicRoute>
+          <PublicRoute exact path="/">
+            <Homepage />
+          </PublicRoute>
+          <PrivateRoute path="/chat">
+            <Chat />
+          </PrivateRoute>
+          <PrivateRoute exact path="/drives">
+            <Drives />
+          </PrivateRoute>
           <PrivateRoute path="/driver">
             <Driver />
           </PrivateRoute>
@@ -87,10 +91,7 @@ const App = (props:any) => {
           </PrivateRoute> 
           <PrivateRoute path="/hitchhiker">
             <Hitchhiker />
-          </PrivateRoute>
-          <Route path="/">
-            <Homepage />
-          </Route>
+          </PrivateRoute> 
         </Switch>
       </main> 
       

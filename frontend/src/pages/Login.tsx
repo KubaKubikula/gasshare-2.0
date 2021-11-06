@@ -39,10 +39,10 @@ const Login = (props:any) =>  {
       .post(API_URL + "login/", requestOptions)
       .then(response => {
         console.log(response.data);
-        props.handleSuccessfulAuth(response.data);
-        
+        props.handleSuccessfulAuth(response.data);  
       })
       .catch(error => {
+        console.log(error);
         props.handleFleshmessage("Email or password doesn't match");
       });
   };
