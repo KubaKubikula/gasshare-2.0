@@ -3,18 +3,22 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import './Homepage.css';
 
 const Homepage = (props:any) => {
     return (
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: 'none',
             pt: 8,
             pb: 6,
           }}
-        >
+        > 
+          <video id="background-video" autoPlay loop muted>
+              <source src="./car.mp4" type='video/mp4' />
+          </video>
             <Container maxWidth="sm">
-                <Typography
+                <Typography style={{ fontWeight: 'bold' }}
                 component="h1"
                 variant="h2"
                 align="center"
@@ -23,7 +27,7 @@ const Homepage = (props:any) => {
                 >
                 Find your drive and share a gas spendings.
                 </Typography>
-                <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                <Typography style={{ fontWeight: 'bold' , color: 'white' }} variant="h5" align="center" color="text.secondary" paragraph>
                     Simply if you are driving from place to place or hitchhiking and want to share you ride/gas money
                 </Typography>
                 <Stack

@@ -125,7 +125,7 @@ const Topmenu = (props:any) => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="relative">
+        <AppBar position="relative" style={{ opacity : '95%'}}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link style={{ textDecoration: 'none',  color: 'white' }} to="/">Gasshare</Link>
