@@ -37,7 +37,6 @@ const Homepage = (props:any) => {
                 justifyContent="center"
                 >
                 <Button variant="contained" href="/login">Start with login</Button>
-                <Button variant="contained" href="/learn">Learn more</Button>
                 </Stack>
             </Container>
           </Box>

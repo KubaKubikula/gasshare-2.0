@@ -4,8 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import Drives from './pages/Drives';
-import Hitchhiker from './pages/Hitchhiker';
-import Driver from './pages/Driver';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Chat from './pages/Chatt';
@@ -17,8 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   BrowserRouter as Router,
-  Switch,
-  Route
+  Switch
 } from "react-router-dom";
 
 const theme = createTheme({palette: {
@@ -83,14 +80,8 @@ const App = () => {
           <PrivateRoute exact path="/drives">
             <Drives />
           </PrivateRoute>
-          <PrivateRoute path="/driver">
-            <Driver />
-          </PrivateRoute>
           <PrivateRoute path="/home">
             <Home /> 
-          </PrivateRoute> 
-          <PrivateRoute path="/hitchhiker">
-            <Hitchhiker />
           </PrivateRoute> 
         </Switch>
       </main> 
