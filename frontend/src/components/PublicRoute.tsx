@@ -11,7 +11,7 @@ const PublicRoute = (props: RouteProps) => {
         <Route
             {...rest}
             render={(routeProps) =>
-                localStorage.getItem("LoggedIn") != "true" ? (
+                localStorage.getItem("LoggedIn") !== "true" ? (
                   children
                 ) : (
                   <Redirect to="/home" />

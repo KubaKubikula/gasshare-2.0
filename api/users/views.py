@@ -35,7 +35,7 @@ def login(request):
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"email" : user.email, "avatar": user.avatar_url, "token" : user.token}
+                "user" : {"user_id": user.id, "email" : user.email, "avatar": user.avatar_url, "token" : user.token}
             }, status=200)
         else:
             return JsonResponse({
@@ -70,7 +70,7 @@ def googlelogin(request):
             return JsonResponse({
                 "loggedIn": "true",
                 "message": "User has been logged in",
-                "user" : {"email" : user.email, "avatar": user.avatar_url, user.token : "token"}
+                "user" : {"user_id": user.id, "email" : user.email, "avatar": user.avatar_url, user.token : "token"}
             }, status=200)
         else:
             return JsonResponse({

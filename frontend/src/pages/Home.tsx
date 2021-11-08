@@ -11,41 +11,45 @@ import Container from '@mui/material/Container';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Home = (props:any) => {
     const handleSubmit = (event:any) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       
+
       console.log({
         drive_from: data.get('from'),
         drive_to: data.get('to'),
         time: data.get('when'),
-        hitchhike: false,
-        user: 2
+        hitchhike: data.get('hitchhike'),
+        user: localStorage.getItem("user_id"),
       });
 
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: {
-          drive_from: data.get('from'),
-          drive_to: data.get('to'),
-          time: data.get('when'),
-          hitchhike: false,
-          user: 2
-        }
-      };
+      // const requestOptions = {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: {
+      //     drive_from: data.get('from'),
+      //     drive_to: data.get('to'),
+      //     time: data.get('when'),
+      //     hitchhike: false,
+      //     user: 2
+      //   }
+      // };
 
-      axios
-        .post(API_URL + "drives/", requestOptions)
-        .then(response => {
-          console.log(response.data);
-          window.location.href = '/drives';
-        })
-        .catch(error => {
-          console.log("check login error", error);
-        });
+      // axios
+      //   .post(API_URL + "drives/", requestOptions)
+      //   .then(response => {
+      //     console.log(response.data);
+      //     window.location.href = '/drives';
+      //   })
+      //   .catch(error => {
+      //     console.log("check login error", error);
+      //   });
     };
     
     const [value, setValue] = React.useState(new Date());
@@ -66,16 +70,14 @@ const Home = (props:any) => {
         </Typography>
         <br /><br />
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker
-            renderInput={(props) => <TextField {...props} />}
-            label="DateTimePicker"
-            value={value}
-            onChange={(newValue:any) => {
-              setValue(newValue);
-            }}
-          />
-        </LocalizationProvider>
+          <RadioGroup
+            aria-label="I am"
+            defaultValue="driver"
+            name="hitchhike"
+          >
+            <FormControlLabel value="driver" control={<Radio />} label="Driving" />
+            <FormControlLabel value="hitchhiker" control={<Radio />} label="Hitchhiking" />
+          </RadioGroup>
           <TextField
             margin="normal"
             required
@@ -96,6 +98,17 @@ const Home = (props:any) => {
             autoComplete="to"
             autoFocus
           />
+          <br /><br />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            renderInput={(props) => <TextField name="when" {...props} />}
+            label="DateTimePicker"
+            value={value}
+            onChange={(newValue:any) => {
+              setValue(newValue);
+            }}
+          />
+          </LocalizationProvider>
           <Button
             type="submit"
             fullWidth

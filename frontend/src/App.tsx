@@ -28,6 +28,7 @@ const App = () => {
   const handleSuccessfulAuth = (data:any) => {
     localStorage.setItem("token", data.user.token);
     localStorage.setItem("avatar_url", data.user.avatar);
+    localStorage.setItem("user_id", data.user.id);
     localStorage.setItem("LoggedIn", "true");
     window.location.href = '/home';
   }
@@ -50,9 +51,9 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.setItem('token', '');
-    localStorage.setItem('userEmail', '');
     localStorage.setItem("LoggedIn", "false");
     localStorage.setItem("avatar_url", "");
+    localStorage.setItem("user_id", "");
     window.location.href = '/';
   }
 
