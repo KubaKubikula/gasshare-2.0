@@ -25,6 +25,9 @@ Non useful notes
 sudo kill $(lsof -t -i:8000) 
 websocket
 
+badges codequality
+https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html
+
 https://circleci.com/docs/2.0/
 
 https://github.com/tj/node-prune
