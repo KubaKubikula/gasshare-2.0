@@ -1,7 +1,6 @@
 # Django & React application
 
 This is mainly for training purposes (you can checkout code i am trying to develop myself up :-))
-<img width="1050" alt="Screenshot 2021-10-25 at 23 59 52" src="https://user-images.githubusercontent.com/3868751/138777077-a19fdb34-975e-487f-b955-4bd1ea919e6a.png">
 
 Used technologies so far:
 
