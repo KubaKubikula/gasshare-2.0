@@ -7,17 +7,15 @@ Used technologies so far:
 Frontend
 ---------------
 1) ReactJs, 
-2) Redux (store)
-3) typescrypt, 
+3) Typescrypt, 
 4) Material UI
-5) socket io
+5) Socket.io
 
 Backend
 -----------
 1) Python 3
 2) Django Framework
 3) Postgres
-
 
 Non useful notes
 ------------------
