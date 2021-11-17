@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -14,12 +13,32 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  drawer: {
+    width: 250
+  },
+  paper: {
+    background: 'black',
+    color: 'white'
+  }
+});
 
 const Topmenu = (props:any) => {
     const menuId = 'primary-search-account-menu';
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const classes = useStyles();
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -124,12 +143,33 @@ const Topmenu = (props:any) => {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} >
         <AppBar position="relative" style={{ opacity : '95%'}}>
         <Toolbar>
+          {localStorage.getItem("LoggedIn") === "true" ? 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link style={{ textDecoration: 'none',  color: 'white' }} to="/">Gasshare</Link>
-          </Typography>
+          <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={() => setIsDrawerOpen(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+          <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} classes={{ paper: classes.paper }}>
+            <List className={classes.drawer}>
+              <ListItem button>
+                <Link style={{ textDecoration: 'none'}} to="/home"><ListItemText primary="New drive" /></Link>
+              </ListItem>
+
+              <ListItem button>
+                <Link style={{ textDecoration: 'none'}} to="/drives"><ListItemText primary="Drives" /></Link>
+              </ListItem>
+            </List>
+          </Drawer>
+          </Typography> : <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link style={{ textDecoration: 'none',  color: 'white' }} to="/">Gasshare</Link>
+          </Typography>}
           {localStorage.getItem("LoggedIn") === "true" ? 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">

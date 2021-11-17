@@ -15,7 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   BrowserRouter as Router,
-  Switch
+  Switch,
+  Route
 } from "react-router-dom";
 
 const theme = createTheme({palette: {
@@ -75,9 +76,7 @@ const App = () => {
           <PublicRoute exact path="/">
             <Homepage />
           </PublicRoute>
-          <PrivateRoute path="/chat">
-            <Chat />
-          </PrivateRoute>
+          <PrivateRoute path="/chat/:driveId" component={Chat} />
           <PrivateRoute exact path="/drives">
             <Drives />
           </PrivateRoute>

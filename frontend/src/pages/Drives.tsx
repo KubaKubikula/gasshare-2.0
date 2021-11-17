@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { Link } from "react-router-dom";
 
 const Drives = (props:any) => {
     const [page, setPage] = useState(0);
@@ -41,7 +42,7 @@ const Drives = (props:any) => {
     function getDrives() {
         axios
             .get(
-                API_URL + "/drives/",
+                API_URL + "drives/",
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
@@ -79,9 +80,9 @@ const Drives = (props:any) => {
                                 const value = row[column.id];
                                 return (
                                 <TableCell key={column.id} >
-                                    <a style={{color:'white'}} href="/chat">
+                                    <Link to={`/chat/${row["id"]}`}>
                                     {value}
-                                    </a>
+                                    </Link>
                                 </TableCell>
                                 );
                             })}

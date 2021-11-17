@@ -15,7 +15,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
       return (
         <Route
             {...rest}
-            render={(routeProps) =>
+            render={(props) =>
                 localStorage.getItem("LoggedIn") === "true" ? (
                   children
                 ) : (
