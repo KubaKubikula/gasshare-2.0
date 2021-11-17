@@ -43,6 +43,8 @@ https://codepen.io/drehimself/pen/KdXwxR
 
 https://github.com/tj/node-prune
 
+https://www.youtube.com/watch?v=HggSXt1Hzfk
+
 preview
 ---------
 <img width="746" alt="Screenshot 2021-11-17 at 21 29 31" src="https://user-images.githubusercontent.com/3868751/142277650-37451096-6f43-43cb-a99a-463eaab04a84.png">
