@@ -1,7 +1,29 @@
 import './Chatt.css';
+import { useState, useEffect } from 'react';
+import { API_URL } from "../config/const";
+import axios from "axios";
 
 const Chatt = (props:any) => {
   console.log(props.match.params.driveId);
+
+  useEffect(() => {
+    getMessages();
+  });
+
+  function getMessages() {
+      axios
+          .post(
+              API_URL + "chatmessages/",
+              {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: { driveId: props.match.params.driveId }
+              }
+          )
+          .then(data => {
+             console.log(data.data);
+          });
+  }
 
   return (
     <div>
