@@ -11,6 +11,7 @@ Frontend
 2) Redux (store)
 3) typescrypt, 
 4) Material UI
+5) socket io
 
 Backend
 -----------
